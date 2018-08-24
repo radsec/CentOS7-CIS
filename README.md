@@ -1,4 +1,5 @@
 # CentOS7-CIS
+
 ## CentOS 7 - CIS Benchmark Hardening Script
 
 This Ansible script is under development and is considered a work in progress.
