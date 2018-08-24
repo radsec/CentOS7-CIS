@@ -10,8 +10,8 @@ This role will make significant changes to systems and could break the running o
 
 ## System Requirements
 ```
-Ansible 2.2
-CentOS 7
+Ansible 2.2+
+CentOS 7+
 ```
 ## Role and Setting Variables
 ```
