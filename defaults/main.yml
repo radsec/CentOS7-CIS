@@ -185,6 +185,8 @@ centos7cis_password_creation_requirements: true
 
 centos7cis_password_expiration_90days: false
 
+centos7cis_modify_user_homes: false
+
 centos7cis_vartmp:
     source: /tmp
     fstype: none
