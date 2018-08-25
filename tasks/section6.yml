@@ -468,6 +468,19 @@
     - level1
     - low
 
+- name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
+  file:
+    path: /opt/6.2.10.sh
+    owner: root
+    group: root
+    state: absent
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.10
+
 - name: "SCORED | 6.2.11 | PATCH | Ensure no users have .forward files"
   file:
       state: absent
