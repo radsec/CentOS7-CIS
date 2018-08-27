@@ -237,6 +237,7 @@
     owner: root
     group: root
     state: absent
+  ignore_errors: "{{ ansible_check_mode }}"
   tags:
     - rule_6.2.6
     - low
@@ -250,6 +251,7 @@
     owner: root
     group: root
     mode: 0700
+  ignore_errors: "{{ ansible_check_mode }}"
   tags:
     - rule_6.2.7
     - low
@@ -486,6 +488,7 @@
       state: absent
       dest: "~{{ item }}/.forward"
   with_items: "{{ users.stdout_lines }}"
+  ignore_errors: "{{ ansible_check_mode }}"
   tags:
     - rule_6.2.11
     - patch
@@ -494,8 +497,8 @@
 
 - name: "SCORED | 6.2.12 | PATCH | Ensure no users have .netrc files"
   file:
-      state: absent
-      dest: "~{{ item }}/.netrc"
+    state: absent
+    dest: "~{{ item }}/.netrc"
   with_items: "{{ users.stdout_lines }}"
   tags:
     - rule_6.2.12
@@ -563,6 +566,8 @@
     state: absent
     dest: "~{{ item }}/.rhosts"
   with_items: "{{ users.stdout_lines }}"
+  when: users is defined
+  ignore_errors: "{{ ansible_check_mode }}"
   tags:
     - rule_6.2.14
     - patch
