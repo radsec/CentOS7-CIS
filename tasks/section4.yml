@@ -42,7 +42,7 @@
       name: auditd
       state: started
       enabled: yes
-  when: centos7cis_skip_for_travis == false
+  when: centos7cis_enable_auditd
   tags:
       - level2
       - high

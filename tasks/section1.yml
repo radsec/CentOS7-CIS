@@ -169,17 +169,21 @@
       - rule_1.1.7
 
       
-- name: "SCORED | 1.1.8  | PATCH | Ensure nodev option set on /var/tmp partition\n
-         SCORED | 1.1.9  | PATCH | Ensure nosuid option set on /var/tmp partition\n
+- name: "SCORED | 1.1.8 | PATCH | Ensure nodev option set on /var/tmp partition\n
+         SCORED | 1.1.9 | PATCH | Ensure nosuid option set on /var/tmp partition\n
          SCORED | 1.1.10 | PATCH | Ensure noexec option set on /var/tmp partition"
   mount:
-    name: /var/tmp
-    src: "{{ rhel7cis_vartmp['source'] }}"
+    path: /var/tmp
+    opts: "rw,nosuid,nodev,noexec,relatime"
     state: mounted
-    fstype: "{{ rhel7cis_vartmp['fstype'] }}"
-    opts: "{{ rhel7cis_vartmp['opts'] }}"
-  when:
-    centos7cis_vartmp['enabled'] == 'true'
+  tags:
+    - level1
+    - scored
+    - patch
+    - rule_1.1.8
+    - rule_1.1.9
+    - rule_1.1.10
+    - low
 
 - name: "SCORED | 1.1.11 | PATCH | Ensure separate partition exists for /var/log"
   shell: mount | grep "on /var/log "
@@ -218,8 +222,10 @@
       - rule_1.1.13
 
 - name: "SCORED | 1.1.14 | PATCH | Ensure nodev option set on /home partition"
-  command: /bin/true
-  changed_when: no
+  mount:
+    path: /home
+    opts: nodev
+    state: mounted
   tags:
       - level1
       - level2
@@ -285,10 +291,12 @@
       - rule_1.1.21
 
 - name: "SCORED | 1.1.22 | PATCH | Disable Automounting"
-  service:
+  systemd:
       name: autofs
       enabled: no
-  when: centos7cis_allow_autofs == false and autofs_service_status.stdout == "loaded"
+  when:
+    - not centos7cis_allow_autofs
+    - autofs_service_status.stdout == "loaded"
   tags:
       - level1
       - low
@@ -697,13 +705,14 @@
       - patch
       - rule_1.7.2
 
-# - name: "NOTSCORED | 1.8 | PATCH | Ensure updates, patches, and additional security software are installed"
-  # yum:
-      # name: "*"
-      # state: latest
-  # tags:
-      # - level1
-      # - level2
-      # - notscored
-      # - patch
-      # - rule_1.8
+- name: "NOTSCORED | 1.8 | PATCH | Ensure updates, patches, and additional security software are installed"
+  yum:
+    name: "*"
+    state: latest
+  when: centos7cis_update
+  tags:
+    - level1
+    - level2
+    - notscored
+    - patch
+    - rule_1.8

@@ -1,7 +1,7 @@
 ---
 # defaults file for CentOS7-CIS
-centos7cis_skip_for_travis: false
 
+# Define what sections to run
 centos7cis_notauto: false
 centos7cis_section1: true
 centos7cis_section2: true
@@ -10,10 +10,58 @@ centos7cis_section4: true
 centos7cis_section5: true
 centos7cis_section6: true
 
+############################
+### Section 1 Parameters ###
+############################
+
+# Section AIDE #
+# Section 1.3.1 | Ensure AIDE is installed and configured
+centos7cis_config_aide: false
+
+# Section 1.3.2 | Ensure filestystem integrity is regularly checked | AIDE cron settings
+centos7cis_aide_cron:
+  cron_user: root
+  cron_file: /etc/crontab
+  aide_job: '/usr/sbin/aide --check'
+  aide_minute: 0
+  aide_hour: 5
+  aide_day: '*'
+  aide_month: '*'
+  aide_weekday: '*'
+
+
+# 1.4.2 Bootloader password
+##bootLOADER PASSWORD MOVED TO VAR_PROMPT
+centos7cis_bootloader_password: random
+centos7cis_set_boot_pass: false
+
+# SELinux Section #
+
+# Section 1.6.1.2 & 1.6.1.3 | Ensure SELinux state is enforcing and configured
+# true = SELinux is disabled | false = SELinux is enabled
 centos7cis_selinux_disable: false
+# Section 1.6.1.2 & 1.6.1.3 | SELinux policy
+centos7cis_selinux_pol: targeted
+
+# MOTD Section #
+# Section 1.7.1.1 | Ensure message of the day is configured properly
+# Warning Banner Content (issue, issue.net, motd)
+centos7cis_warning_banner: |
+    Authorized uses only. All activity may be monitored and reported.
+
+# End Banner
+
+# System package updates #
+
+# Section 1.8 | Ensure updates of software repos and system packages are up-to-date | Run yum update
+centos7cis_update: false
+
+
+############################
+### Section 2 Parameters ###
+############################
 
 # Service configuration booleans set true to keep service
-centos7cis_avahi_server: false
 centos7cis_cups_server: false
 centos7cis_dhcp_server: false
 centos7cis_ldap_server: false
@@ -43,11 +91,82 @@ centos7cis_squid: false
 centos7cis_net_snmp: false
 centos7cis_allow_autofs: false
 
+centos7cis_openldap_clients_required: false
+centos7cis_telnet_required: false
+centos7cis_talk_required: false
+centos7cis_rsh_required: false
+centos7cis_ypbind_required: false
+
+# Section 2.1.11 | Ensure xinetd is not enabled
 # xinetd required
 centos7cis_xinetd_required: false
 
 # RedHat Satellite Subscription items
 centos7cis_rhnsd_required: false
+
+# Section 2.2.1.x | Time synchronization #
+# Time Synchronization - Use chrony or ntp(d)
+centos7cis_time_synchronization: chrony
+#centos7cis_time_Synchronization: ntp
+
+centos7cis_time_synchronization_servers:
+    - 0.pool.ntp.org
+    - 1.pool.ntp.org
+    - 2.pool.ntp.org
+    - 3.pool.ntp.org
+
+# Section 2.2.2 | Ensure X Window System is not installed
+# Set to 'true' if X Windows is needed in your environment
+centos7cis_xwindows_required: no
+
+
+# Section 2.2.3 | Ensure avahi server is not enabled
+centos7cis_avahi_server: false
+
+
+############################
+### Section 3 Parameters ###
+############################
+
+# Section 3.1.1 & 3.1.2 | Ensure IP forwarding is disabled and Ensure packet redirect sending is disabled
+# These rules can only be configured on non-host and router configurations
+
+# System network parameters (host only OR host and router)
+# if host only = false OR host and router = true
+centos7cis_is_router: false
+
+# IPv6 required
+centos7cis_ipv6_required: true
+
+# 3.4.2 | PATCH | Ensure /etc/hosts.allow is configured
+centos7cis_host_allow:
+    - "10.0.0.0/255.0.0.0"
+    - "172.16.0.0/255.240.0.0"
+    - "192.168.0.0/255.255.0.0"
+
+# 3.4.3 | Ensure /etc/hosts.deny is configured
+centos7cis_enable_hosts_deny: false
+
+
+# Section 3.6.1 | Ensure iptables is installed
+# Selection of firewall package to use below | default: iptables
+#iptables OR firewalld
+centos7cis_firewall: firewalld
+#centos7cis_firewall: iptables
+
+# Section 3.6.2 | Ensure default deny firewall policy
+centos7cis_firewall_default_deny_rule: false
+# Section 3.6.3 | Ensure loopback traffic is configured
+centos7cis_firewall_loopback_rule: true
+# Section 3.6.4 | Ensure outbound and established connections are configured
+centos7cis_firewall_outbound_rule: true
+
+############################
+### Section 4 Parameters ###
+############################
+
+# 4.1.2 | Enable auditd
+centos7cis_enable_auditd: false
 
 # System Accounting and Logging
 # Set logging service to 'true'
@@ -58,78 +177,40 @@ centos7cis_rsyslog_loghost_address: INSERT_DNS_NAME_HERE
 centos7cis_syslog_ng: false
 centos7cis_syslog_ng_loghost_address: INSERT_DNS_NAME_HERE
 
-# 1.4.2 Bootloader password
-##bootLOADER PASSWORD MOVED TO VAR_PROMPT
-centos7cis_bootloader_password: random
-centos7cis_set_boot_pass: false
+# Section 5.2.8 | Ensure SSH root login is disabled
+centos7cis_permit_ssh_root_login_disabled: true
 
-# System network parameters (host only OR host and router)
-centos7cis_is_router: false
-
-# IPv6 required
-centos7cis_ipv6_required: true
-
-# AIDE
-centos7cis_config_aide: false
-# AIDE cron settings
-centos7cis_aide_cron:
-  cron_user: root
-  cron_file: /etc/crontab
-  aide_job: '/usr/sbin/aide --check'
-  aide_minute: 0
-  aide_hour: 5
-  aide_day: '*'
-  aide_month: '*'
-  aide_weekday: '*'
-
-# SELinux policy
-centos7cis_selinux_pol: targeted
-
-# Set to 'true' if X Windows is needed in your environment
-centos7cis_xwindows_required: no
-
-centos7cis_openldap_clients_required: false
-centos7cis_telnet_required: false
-centos7cis_talk_required: false
-centos7cis_rsh_required: false
-centos7cis_ypbind_required: false
-
-# Time Synchronization - chrony OR ntp(d)
-centos7cis_time_synchronization: chrony
-#centos7cis_time_Synchronization: ntp
-
-centos7cis_time_synchronization_servers:
-    - 0.pool.ntp.org
-    - 1.pool.ntp.org
-    - 2.pool.ntp.org
-    - 3.pool.ntp.org
-
-# 3.4.2 | PATCH | Ensure /etc/hosts.allow is configured
-centos7cis_host_allow:
-    - "10.0.0.0/255.0.0.0"
-    - "172.16.0.0/255.240.0.0"
-    - "192.168.0.0/255.255.0.0"
-
-#iptables OR firewalld
-centos7cis_firewall: firewalld
-#centos7cis_firewall: iptables
-
-# Warning Banner Content (issue, issue.net, motd)
-centos7cis_warning_banner: |
-    Authorized uses only. All activity may be monitored and reported.
-
-# End Banner
-
-centos7cis_password_requirements: true
-
-centos7cis_permit_root_login_disabled: true
+# Section 5.3.1 | Ensure password creation requirements are configured
+centos7cis_password_creation_requirements: true
 
 centos7cis_password_expiration_90days: false
-
-centos7_cis_all_sys_accounts_non_login: false
 
 centos7cis_vartmp:
     source: /tmp
     fstype: none
     opts: "defaults, nodev, nosuid, noexec, bind"
     enabled: false
+
+############################
+### Section 5 Parameters ###
+############################
+
+# Section 5.4.1.1 | Ensure password expiration is 365 days or less
+centos7cis_password_expiration: true
+
+# Section 5.4.1.2 | Ensure minimum days between password changes is 7 or more
+centos7cis_password_minimum_days_password_change: true
+
+# Section 5.4.2 | Ensure system accounts are non-login
+centos7cis_ensure_system_accounts_are_non_login: true
+
+# Section 5.4.4 | Ensure default user umask is 027 or more restrictive
+centos7cis_modify_default_user_umask: true
+centos7cis_default_user_umask: 027
+
+############################
+### Section 6 Parameters ###
+############################
+
+# Section 6.2.8 | Ensure users' home directory permissions are 750 or more restrictive
+centos7cis_modify_user_homes: true

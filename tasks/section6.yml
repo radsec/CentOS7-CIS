@@ -1,241 +1,469 @@
 - name: "NOTSCORED | 6.1.1 | PATCH | Audit system file permissions"
   command: /bin/true
   tags:
-      - level2
-      - patch
-      - rule_6.1.1
+    - level2
+    - patch
+    - rule_6.1.1
 
 - name: "SCORED | 6.1.2 | PATCH | Ensure permissions on /etc/passwd are configured"
   file:
-      dest: /etc/passwd
-      owner: root
-      group: root
-      mode: 0644
+    dest: /etc/passwd
+    owner: root
+    group: root
+    mode: 0644
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.1.2
+    - level1
+    - level2
+    - low
+    - patch
+    - rule_6.1.2
 
 - name: "SCORED | 6.1.3 | PATCH | Ensure permissions on /etc/shadow are configured"
   file:
-      dest: /etc/shadow
-      owner: root
-      group: root
-      mode: 0000
+    dest: /etc/shadow
+    owner: root
+    group: root
+    mode: 0000
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.1.3
+    - level1
+    - level2
+    - low
+    - patch
+    - rule_6.1.3
 
 - name: "SCORED | 6.1.4 | PATCH | Ensure permissions on /etc/group are configured"
   file:
-      dest: /etc/group
-      owner: root
-      group: root
-      mode: 0644
+    dest: /etc/group
+    owner: root
+    group: root
+    mode: 0644
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.1.4
+    - level1
+    - level2
+    - low
+    - patch
+    - rule_6.1.4
 
 - name: "SCORED | 6.1.5 | PATCH | Ensure permissions on /etc/gshadow are configured"
   file:
-      dest: /etc/gshadow
-      owner: root
-      group: root
-      mode: 0000
+    dest: /etc/gshadow
+    owner: root
+    group: root
+    mode: 0000
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.1.5
+    - level1
+    - level2
+    - low
+    - patch
+    - rule_6.1.5
 
 - name: "SCORED | 6.1.6 | PATCH | Ensure permissions on /etc/passwd- are configured"
   file:
-      dest: /etc/passwd-
-      owner: root
-      group: root
-      mode: 0644
+    dest: /etc/passwd-
+    owner: root
+    group: root
+    mode: 0644
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.1.6
+    - level1
+    - level2
+    - low
+    - patch
+    - rule_6.1.6
 
 - name: "SCORED | 6.1.7 | PATCH | Ensure permissions on /etc/shadow- are configured"
   file:
-      dest: /etc/shadow-
-      owner: root
-      group: root
-      mode: 0000
+    dest: /etc/shadow-
+    owner: root
+    group: root
+    mode: 0000
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.1.7
+    - level1
+    - level2
+    - low
+    - patch
+    - rule_6.1.7
 
 - name: "SCORED | 6.1.8 | PATCH | Ensure permissions on /etc/group- are configured"
   file:
-      dest: /etc/group-
-      owner: root
-      group: root
-      mode: 0600
+    dest: /etc/group-
+    owner: root
+    group: root
+    mode: 0600
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.1.8
+    - level1
+    - level2
+    - low
+    - patch
+    - rule_6.1.8
 
 - name: "SCORED | 6.1.9 | PATCH | Ensure permissions on /etc/gshadow- are configured"
   file:
-      dest: /etc/gshadow-
-      owner: root
-      group: root
-      mode: 0600
+    dest: /etc/gshadow-
+    owner: root
+    group: root
+    mode: 0600
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.1.9
+    - level1
+    - level2
+    - low
+    - patch
+    - rule_6.1.9
 
 - name: "SCORED | 6.1.10 | PATCH | Ensure no world writable files exist"
   command: /bin/true
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.1.10
+    - level1
+    - level2
+    - patch
+    - rule_6.1.10
 
 - name: "SCORED | 6.1.11 | PATCH | Ensure no unowned files or directories exist"
   command: /bin/true
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.1.11
+    - level1
+    - level2
+    - patch
+    - rule_6.1.11
 
 - name: "SCORED | 6.1.12 | PATCH | Ensure no ungrouped files or directories exist"
   command: /bin/true
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.1.12
+    - level1
+    - level2
+    - patch
+    - rule_6.1.12
 
 - name: "NOTSCORED | 6.1.13 | PATCH | Audit SUID executables"
   command: /bin/true
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.1.13
+    - level1
+    - level2
+    - patch
+    - rule_6.1.13
 
 - name: "NOTSCORED | 6.1.14 | PATCH | Audit SGID executables"
   command: /bin/true
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.1.14
+    - level1
+    - level2
+    - patch
+    - rule_6.1.14
 
 - name: "SCORED | 6.2.1 | PATCH | Ensure password fields are not empty"
   command: passwd -l {{ item }}
   with_items: "{{ empty_password_accounts.stdout_lines }}"
   when: empty_password_accounts.rc
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.2.1
+    - level1
+    - level2
+    - low
+    - patch
+    - rule_6.2.1
 
 - name: "SCORED | 6.2.2 | PATCH | Ensure no legacy '+' entries exist in /etc/passwd"
   command: sed -i '/^+/ d' /etc/passwd
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.2
+    - level1
+    - level2
+    - patch
+    - rule_6.2.2
 
 - name: "SCORED | 6.2.3 | PATCH | Ensure no legacy '+' entries exist in /etc/shadow"
   command: sed -i '/^+/ d' /etc/shadow
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.2.3
+    - level1
+    - level2
+    - low
+    - patch
+    - rule_6.2.3
 
 - name: "SCORED | 6.2.4 | PATCH | Ensure no legacy '+' entries exist in /etc/group"
   command: sed -i '/^+/ d' /etc/group
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.2.4
+    - level1
+    - level2
+    - low
+    - patch
+    - rule_6.2.4
 
 - name: "SCORED | 6.2.5 | PATCH | Ensure root is the only UID 0 account"
   command: passwd -l {{ item }}
   with_items: "{{ uid_zero_accounts_except_root.stdout_lines }}"
   when: uid_zero_accounts_except_root.rc
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.2.5
+    - level1
+    - level2
+    - low
+    - patch
+    - rule_6.2.5
 
 - name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
-  command: /bin/true
+  shell: /opt/6.2.6.sh
+  args:
+    executable: /bin/bash
+  register: root_path_integrity
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.6
+    - rule_6.2.6
+    - low
+    - level1
+    - low
+
+- name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
+  debug:
+    var: root_path_integrity.stdout_lines
+  when: root_path_integrity.stdout != ""
+  tags:
+    - rule_6.2.6
+    - low
+    - level1
+    - low
+
+- name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
+  debug:
+    msg: "PASS | 6.2.6 | root PATH integrity"
+  when: root_path_integrity.stdout == ""
+  tags:
+    - rule_6.2.6
+    - low
+    - level1
+    - low
+
+- name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
+  file:
+    path: /opt/6.2.6.sh
+    owner: root
+    group: root
+    state: absent
+  tags:
+    - rule_6.2.6
+    - low
+    - level1
+    - low
 
 - name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
-  command: /bin/true
+  copy:
+    src: scripts/6.2.7.sh
+    dest: /opt/6.2.7.sh
+    owner: root
+    group: root
+    mode: 0700
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.7
+    - rule_6.2.7
+    - low
+    - level1
+    - low
+
+- name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
+  shell: /opt/6.2.7.sh
+  args:
+    executable: /bin/bash
+  register: home_directories_exist
+  tags:
+    - rule_6.2.7
+    - low
+    - level1
+    - low
+
+- name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
+  debug:
+    var: home_directories_exist.stdout_lines
+  when: home_directories_exist.stdout != ""
+  tags:
+    - rule_6.2.7
+    - low
+    - level1
+    - low
+
+- name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
+  debug:
+    msg: "PASS | 6.2.7 | All users' home directories exist."
+  when: home_directories_exist.stdout == ""
+  tags:
+    - rule_6.2.7
+    - low
+    - level1
+    - low
+
+- name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
+  file:
+    path: /opt/6.2.7.sh
+    owner: root
+    group: root
+    state: absent
+  tags:
+    - rule_6.2.7
+    - low
+    - level1
+    - low
 
 - name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
-  command: /bin/true
+  copy:
+    src: scripts/6.2.8.sh
+    dest: /opt/6.2.8.sh
+    owner: root
+    group: root
+    mode: 0700
+  when: centos7cis_modify_user_homes
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.8
+    - rule_6.2.8
+    - level1
+    - patch
+    - low
+
+- name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
+  shell: /opt/6.2.8.sh
+  args:
+    executable: /bin/bash
+  register: home_directories_permissions
+  when: centos7cis_modify_user_homes
+  tags:
+    - rule_6.2.8
+    - level1
+    - patch
+    - low
+
+- name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
+  debug:
+    var: home_directories_permissions.stdout_lines
+  when: centos7cis_modify_user_homes
+  tags:
+    - rule_6.2.8
+    - level1
+    - patch
+    - low
+
+- name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
+  debug:
+    msg: "PASS | 6.2.8 | Users' home directories permissions are 750 or more restrictive."
+  when:
+    - home_directories_permissions.stdout == ""
+    - centos7cis_modify_user_homes
+  tags:
+    - rule_6.2.8
+    - level1
+    - patch
+    - low
+
+- name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
+  file:
+    path: /opt/6.2.8.sh
+    owner: root
+    group: root
+    state: absent
+  when: centos7cis_modify_user_homes
+  tags:
+    - rule_6.2.8
+    - level1
+    - patch
+    - low
 
 - name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
-  command: /bin/true
+  copy:
+    src: scripts/6.2.9.sh
+    dest: /opt/6.2.9.sh
+    owner: root
+    group: root
+    mode: 0700
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.9
+    - rule_6.2.9
+    - level1
+    - patch
+    - low
+
+- name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
+  shell: /opt/6.2.9.sh
+  args:
+    executable: /bin/bash
+  register: home_directories_own
+  tags:
+    - rule_6.2.9
+    - level1
+    - patch
+    - low
+
+- name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
+  debug:
+    var: home_directories_own.stdout_lines
+  tags:
+    - rule_6.2.9
+    - level1
+    - patch
+
+- name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
+  debug:
+    msg: "PASS | 6.2.9 | Users' own their home directories."
+  when: home_directories_own.stdout == ""
+  tags:
+    - rule_6.2.9
+    - level1
+    - patch
+    - low
+
+- name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
+  file:
+    path: /opt/6.2.9.sh
+    owner: root
+    group: root
+    state: absent
+  tags:
+    - rule_6.2.9
+    - level1
+    - patch
+    - low
+- name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
+  copy:
+    src: scripts/6.2.10.sh
+    dest: /opt/6.2.10.sh
+    owner: root
+    group: root
+    mode: 0700
+  tags:
+    - rule_6.2.10
+    - patch
+    - level1
+    - low
 
 - name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
-  command: /bin/true
+  shell: /opt/6.2.10.sh
+  args:
+    executable: /bin/bash
+  register: user_dot_files
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.10
+    - rule_6.2.10
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
+  debug:
+    var: user_dot_files.stdout_lines
+  tags:
+    - rule_6.2.10
+    - level1
+    - patch
+    - low
+
+- name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
+  debug:
+    msg: "PASS | 6.2.10 | Users' dot files are not group or world writable."
+  when: user_dot_files.stdout == ""
+  tags:
+    - rule_6.2.10
+    - level1
+    - patch
+    - low
+
+- name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
+  file:
+    path: /opt/6.2.10.sh
+    owner: root
+    group: root
+    state: absent
+  tags:
+    - rule_6.2.10
+    - patch
+    - level1
+    - low
 
 - name: "SCORED | 6.2.11 | PATCH | Ensure no users have .forward files"
   file:
@@ -243,11 +471,10 @@
       dest: "~{{ item }}/.forward"
   with_items: "{{ users.stdout_lines }}"
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.2.11
+    - rule_6.2.11
+    - patch
+    - level1
+    - low
 
 - name: "SCORED | 6.2.12 | PATCH | Ensure no users have .netrc files"
   file:
@@ -255,53 +482,131 @@
       dest: "~{{ item }}/.netrc"
   with_items: "{{ users.stdout_lines }}"
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.2.12
+    - rule_6.2.12
+    - patch
+    - level1
+    - low
 
-# - name: "SCORED | 6.2.13 | PATCH | Ensure users' .netrc Files are not group or world accessible"
-#   file:
-#       mode: 0600
-#       dest: "~{{ item }}/.netrc"
-#   with_items: "{{ users.stdout_lines }}"
-#   tags:
-#       - level1
-#       - level2
-#       - patch
-#       - rule_6.2.13
+- name: "SCORED | 6.2.13 | PATCH | Ensure users' .netrc files are not group or world accessible"
+  copy:
+    src: scripts/6.2.13.sh
+    dest: /opt/6.2.13.sh
+    owner: root
+    group: root
+    mode: 0700
+  tags:
+    - rule_6.2.13
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.13 | PATCH | Ensure users' .netrc files are not group or world accessible"
+  shell: /opt/6.2.13.sh
+  args:
+    executable: /bin/bash
+  register: dot_netrc_files
+  tags:
+    - rule_6.2.13
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.13 | PATCH | Ensure users' .netrc files are not group or world accessible"
+  debug:
+    var: dot_netrc_files.stdout_lines
+  tags:
+    - rule_6.2.13
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.13 | PATCH | Ensure users' .netrc files are not group or world accessible"
+  debug:
+    msg: "PASS | 6.2.13 | Users' .netrc files are not group or world accessible."
+  when: dot_netrc_files.stdout == ""
+  tags:
+    - rule_6.2.13
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.13 | PATCH | Ensure users' .netrc Files are not group or world accessible"
+  file:
+    path: /opt/6.2.13.sh
+    owner: root
+    group: root
+    state: absent
+  tags:
+    - rule_6.2.13
+    - patch
+    - level1
+    - low
 
 - name: "SCORED | 6.2.14 | PATCH | Ensure no users have .rhosts files"
   file:
-      state: absent
-      dest: "~{{ item }}/.rhosts"
+    state: absent
+    dest: "~{{ item }}/.rhosts"
   with_items: "{{ users.stdout_lines }}"
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_6.2.14
+    - rule_6.2.14
+    - patch
+    - level1
+    - low
 
 - name: "SCORED | 6.2.15 | PATCH | Ensure all groups in /etc/passwd exist in /etc/group"
-  script: /etc/ansible/roles/centos7cis/scripts/rule_six_two_fifteen.sh
-  ignore_errors: yes
-  register: centos7_cis_rule_6_2_15_results
+  copy:
+    src: scripts/6.2.15.sh
+    dest: /opt/6.2.15.sh
+    owner: root
+    group: root
+    mode: 0700
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.15
+    - rule_6.2.15
+    - patch
+    - level1
+    - low
 
-- name: "SCORED | 6.2.15 | PATCH | Ensure all groups in /etc/passwd exist in /etc/group | Print Out"
-  debug:
-    var: centos7_cis_rule_6_2_15_results
+- name: "SCORED | 6.2.15 | PATCH | Ensure all groups in /etc/passwd exist in /etc/group"
+  shell: /opt/6.2.15.sh
+  args:
+    executable: /bin/bash
+  register: check_groups_in_passwd
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.15
+    - rule_6.2.15
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.15 | PATCH | Ensure all groups in /etc/passwd exist in /etc/group"
+  debug:
+    var: check_groups_in_passwd.stdout_lines
+  tags:
+    - rule_6.2.15
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.15 | PATCH | Ensure all groups in /etc/passwd exist in /etc/group"
+  debug:
+    msg: "PASS | 6.2.15 | All groups exist in /etc/group."
+  when: check_groups_in_passwd.stdout == ""
+  tags:
+    - rule_6.2.15
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.15 | PATCH | Ensure all groups in /etc/passwd exist in /etc/group"
+  file:
+    path: /opt/6.2.15.sh
+    owner: root
+    group: root
+    state: absent
+  tags:
+    - rule_6.2.15
+    - patch
+    - level1
+    - low
 
 - name: "SCORED | 6.2.16 | PATCH | Ensure no duplicate UIDs exist"
   copy:
@@ -310,50 +615,41 @@
     owner: root
     group: root
     mode: 0700
-  ignore_errors: "{{ ansible_check_mode }}"
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.16
+    - rule_6.2.16
+    - patch
+    - level1
+    - low
 
 - name: "SCORED | 6.2.16 | PATCH | Ensure no duplicate UIDs exist"
   shell: /opt/6.2.16.sh
   args:
     executable: /bin/bash
   register: duplicate_uids
-  ignore_errors: "{{ ansible_check_mode }}"
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.16
+    - rule_6.2.16
+    - patch
+    - level1
+    - low
 
 - name: "SCORED | 6.2.16 | PATCH | Ensure no duplicate UIDs exist"
   debug:
     var: duplicate_uids.stdout_lines
-  when:
-    - not ansible_check_mode
-    - duplicate_uids is defined
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.16
+    - rule_6.2.16
+    - patch
+    - level1
+    - low
 
 - name: "SCORED | 6.2.16 | PATCH | Ensure no duplicate UIDs exist"
   debug:
     msg: "PASS | 6.2.16 | No duplicate UIDs exist."
-  when:
-    - duplicate_uids is defined
-    - duplicate_uids.stdout == ""
-    - not ansible_check_mode
-  ignore_errors: "{{ ansible_check_mode }}"
+  when: duplicate_uids.stdout == ""
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.16
+    - rule_6.2.16
+    - patch
+    - level1
+    - low
 
 - name: "SCORED | 6.2.16 | PATCH | Ensure no duplicate UIDs exist"
   file:
@@ -361,33 +657,173 @@
     owner: root
     group: root
     state: absent
-  ignore_errors: "{{ ansible_check_mode }}"
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.16
+    - rule_6.2.16
+    - patch
+    - level1
+    - low
 
 - name: "SCORED | 6.2.17 | PATCH | Ensure no duplicate GIDs exist"
-  command: /bin/true
+  copy:
+    src: scripts/6.2.17.sh
+    dest: /opt/6.2.17.sh
+    owner: root
+    group: root
+    mode: 0700
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.17
+    - rule_6.2.17
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.17 | PATCH | Ensure no duplicate GIDs exist"
+  shell: /opt/6.2.17.sh
+  args:
+    executable: /bin/bash
+  register: duplicate_gids
+  tags:
+    - rule_6.2.17
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.17 | PATCH | Ensure no duplicate GIDs exist"
+  debug:
+    var: duplicate_gids.stdout_lines
+  tags:
+    - rule_6.2.17
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.17 | PATCH | Ensure no duplicate GIDs exist"
+  debug:
+    msg: "PASS | 6.2.17 | No duplicate GIDs exist."
+  when: duplicate_gids.stdout == ""
+  tags:
+    - rule_6.2.17
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.17 | PATCH | Ensure no duplicate GIDs exist"
+  file:
+    path: /opt/6.2.17.sh
+    owner: root
+    group: root
+    state: absent
+  tags:
+    - rule_6.2.17
+    - patch
+    - level1
+    - low
 
 - name: "SCORED | 6.2.18 | PATCH | Ensure no duplicate user names exist"
-  command: /bin/true
+  copy:
+    src: scripts/6.2.18.sh
+    dest: /opt/6.2.18.sh
+    owner: root
+    group: root
+    mode: 0700
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.18
+    - rule_6.2.18
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.18 | PATCH | Ensure no duplicate user names exist"
+  shell: /opt/6.2.18.sh
+  args:
+    executable: /bin/bash
+  register: duplicate_users
+  tags:
+    - rule_6.2.18
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.18 | PATCH | Ensure no duplicate user names exist"
+  debug:
+    var: duplicate_users.stdout_lines
+  tags:
+    - rule_6.2.18
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.18 | PATCH | Ensure no duplicate user names exist"
+  debug:
+    msg: "PASS | 6.2.18 | No duplicate user names exist"
+  when: duplicate_users.stdout == ""
+  tags:
+    - rule_6.2.18
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.18 | PATCH | Ensure no duplicate user names exist"
+  file:
+    path: /opt/6.2.18.sh
+    owner: root
+    group: root
+    state: absent
+  tags:
+    - rule_6.2.18
+    - patch
+    - level1
+    - low
 
 - name: "SCORED | 6.2.19 | PATCH | Ensure no duplicate group names exist"
-  command: /bin/true
+  copy:
+    src: scripts/6.2.19.sh
+    dest: /opt/6.2.19.sh
+    owner: root
+    group: root
+    mode: 0700
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_6.2.19
+    - rule_6.2.19
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.19 | PATCH | Ensure no duplicate group names exist"
+  shell: /opt/6.2.19.sh
+  args:
+    executable: /bin/bash
+  register: duplicate_groups
+  tags:
+    - rule_6.2.19
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.19 | PATCH | Ensure no duplicate group names exist"
+  debug:
+    var: duplicate_groups.stdout_lines
+  tags:
+    - rule_6.2.19
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.19 | PATCH | Ensure no duplicate group names exist"
+  debug:
+    msg: "PASS | 6.2.19 | No duplicate group names exist"
+  when: duplicate_groups.stdout == ""
+  tags:
+    - rule_6.2.19
+    - patch
+    - level1
+    - low
+
+- name: "SCORED | 6.2.19 | PATCH | Ensure no duplicate group names exist"
+  file:
+    path: /opt/6.2.19.sh
+    owner: root
+    group: root
+    state: absent
+  tags:
+    - rule_6.2.19
+    - patch
+    - level1
+    - low

@@ -267,6 +267,7 @@
       dest: /etc/hosts.deny
       regexp: "^(#)?ALL"
       line: "ALL: ALL"
+  when: centos7cis_enable_hosts_deny
   tags:
       - level1
       - high
@@ -376,37 +377,216 @@
       - patch
       - rule_3.6.1
 
-- name: "SCORED | 3.6.2 | PATCH | Ensure default deny firewall policy"
-  command: /bin/true
-  when: centos7cis_firewall == "iptables"
+- name: "SCORED | 3.6.2 | PATCH | Ensure default deny firewall policy | INPUT Policy"
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    policy: DROP
+    action: append
+    state: present
+  when:
+    - centos7cis_firewall == "iptables"
+    - centos7cis_firewall_default_deny_rule
   tags:
-      - level1
-      - patch
-      - rule_3.6.2
+    - level1
+    - patch
+    - rule_3.6.2
+    - medium
 
-- name: "SCORED | 3.6.3 | PATCH | Ensure loopback traffic is configured"
-  command: /bin/true
-  when: centos7cis_firewall == "iptables"
+- name: "SCORED | 3.6.2 | PATCH | Ensure default deny firewall policy | OUTPUT Policy"
+  iptables:
+    ip_version: ipv4
+    chain: OUTPUT
+    policy: DROP
+    action: append
+    state: present
+  when:
+    - centos7cis_firewall == "iptables"
+    - centos7cis_firewall_default_deny_rule
   tags:
-      - level1
-      - patch
-      - rule_3.6.3
+    - level1
+    - patch
+    - rule_3.6.2
+    - medium
+
+- name: "SCORED | 3.6.2 | PATCH | Ensure default deny firewall policy | FORWARD Policy"
+  iptables:
+    ip_version: ipv4
+    chain: FORWARD
+    policy: DROP
+    action: append
+    state: present
+  when:
+    - centos7cis_firewall == "iptables"
+    - centos7cis_firewall_default_deny_rule
+  tags:
+    - level1
+    - patch
+    - rule_3.6.2
+    - medium
+
+- name: "SCORED | 3.6.3 | PATCH | Ensure loopback traffic is configured | INPUT rule"
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+    action: append
+    state: present
+  when:
+    - centos7cis_firewall == "iptables"
+    - centos7cis_firewall_loopback_rule
+  tags:
+    - level1
+    - patch
+    - rule_3.6.3
+    - low
+
+- name: "SCORED | 3.6.3 | PATCH | Ensure loopback traffic is configured | OUTPUT rule"
+  iptables:
+    ip_version: ipv4
+    chain: OUTPUT
+    out_interface: lo
+    jump: ACCEPT
+    action: append
+    state: present
+  when:
+    - centos7cis_firewall == "iptables"
+    - centos7cis_firewall_loopback_rule
+  tags:
+    - level1
+    - patch
+    - rule_3.6.3
+    - low
+
+- name: "SCORED | 3.6.3 | PATCH | Ensure loopback traffic is configured | 127.0.0.0/8 rule"
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    source: 127.0.0.0/8
+    jump: DROP
+    action: append
+    state: present
+  when:
+    - centos7cis_firewall == "iptables"
+    - centos7cis_firewall_loopback_rule
+  tags:
+    - level1
+    - patch
+    - rule_3.6.3
+    - low
 
 - name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
-  command: /bin/true
-  when: centos7cis_firewall == "iptables"
+  iptables:
+    ip_version: ipv4
+    chain: OUTPUT
+    protocol: tcp
+    match: state
+    ctstate: NEW,ESTABLISHED
+    jump: ACCEPT
+  when:
+    - centos7cis_firewall == "iptables"
+    - centos7cis_firewall_outbound_rule
   tags:
-      - level1
-      - patch...
-      - rule_3.6.4
+    - level1
+    - patch
+    - rule_3.6.4
+    - low
+
+- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
+  iptables:
+    ip_version: ipv4
+    chain: OUTPUT
+    protocol: udp
+    match: state
+    ctstate: NEW,ESTABLISHED
+    jump: ACCEPT
+  when:
+    - centos7cis_firewall == "iptables"
+    - centos7cis_firewall_outbound_rule
+  tags:
+    - level1
+    - patch
+    - rule_3.6.4
+    - low
+
+- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
+  iptables:
+    ip_version: ipv4
+    chain: OUTPUT
+    protocol: icmp
+    match: state
+    ctstate: NEW,ESTABLISHED
+    jump: ACCEPT
+  when:
+    - centos7cis_firewall == "iptables"
+    - centos7cis_firewall_outbound_rule
+  tags:
+    - level1
+    - patch
+    - rule_3.6.4
+    - low
+
+- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    protocol: tcp
+    match: state
+    ctstate: ESTABLISHED
+    jump: ACCEPT
+  when:
+    - centos7cis_firewall == "iptables"
+    - centos7cis_firewall_outbound_rule
+  tags:
+    - level1
+    - patch
+    - rule_3.6.4
+    - low
+
+- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    protocol: udp
+    match: state
+    ctstate: ESTABLISHED
+    jump: ACCEPT
+  when:
+    - centos7cis_firewall == "iptables"
+    - centos7cis_firewall_outbound_rule
+  tags:
+    - level1
+    - patch
+    - rule_3.6.4
+    - low
+
+- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    protocol: icmp
+    match: state
+    ctstate: ESTABLISHED
+    jump: ACCEPT
+  when:
+    - centos7cis_firewall == "iptables"
+    - centos7cis_firewall_outbound_rule
+  tags:
+    - level1
+    - patch
+    - rule_3.6.4
+    - low
 
 - name: "SCORED | 3.6.5 | PATCH | Ensure firewall rules exist for all open ports"
-  command: /bin/true
+  debug:
+    msg: "Ensure firewall rules exist for all open ports"
   when: centos7cis_firewall == "iptables"
   tags:
-      - level1
-      - patch
-      - rule_3.6.5
+    - level1
+    - patch
+    - rule_3.6.5
+    - low
 
 - name: "NOTSCORED | 3.7 | PATCH | Ensure wireless interfaces are disabled"
   command: /bin/true
