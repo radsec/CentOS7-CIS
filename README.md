@@ -1,4 +1,4 @@
-# CentOS7-CIS
+# CentOS7-CIS - v2.2.0 - Latest
 
 ## CentOS 7 - CIS Benchmark Hardening Script
 
@@ -15,7 +15,12 @@ CentOS 7.x+
 ```
 ## Role and Setting Variables
 ```
-Work in progress
+section1
+section2
+section3
+section4
+section5
+section6
 ```
 ## License
 MIT License
