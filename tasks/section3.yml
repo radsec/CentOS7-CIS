@@ -267,7 +267,9 @@
       dest: /etc/hosts.deny
       regexp: "^(#)?ALL"
       line: "ALL: ALL"
-  when: centos7cis_enable_hosts_deny
+  when:
+    - centos7cis_enable_host_deny is defined
+    - centos7cis_enable_hosts_deny
   tags:
       - level1
       - high
@@ -350,7 +352,9 @@
   yum:
       name: firewalld
       state: present
-  when: centos7cis_firewall == "firewalld"
+  when:
+    - centos7cis_firewall is defined
+    - centos7cis_firewall == "firewalld"
   tags:
       - level1
       - patch
@@ -361,7 +365,9 @@
       name: firewalld
       state: stopped
       enabled: no
-  when: centos7cis_firewall == "firewalld"
+  when:
+    - centos7cis_firewall is defined
+    - centos7cis_firewall == "firewalld"
   tags:
       - level1
       - patch
@@ -371,7 +377,9 @@
   yum:
       name: iptables
       state: present
-  when: centos7cis_firewall == "iptables"
+  when:
+    - centos7cis_firewall is defined
+    - centos7cis_firewall == "iptables"
   tags:
       - level1
       - patch
@@ -385,8 +393,9 @@
     action: append
     state: present
   when:
+    - centos7cis_firewall is defined
     - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_default_deny_rule
+    - centos7cis_firewall_default_deny_rule is defined and centos7cis_firewall_default_deny_rule
   tags:
     - level1
     - patch
@@ -401,8 +410,9 @@
     action: append
     state: present
   when:
+    - centos7cis_firewall is defined
     - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_default_deny_rule
+    - centos7cis_firewall_default_deny_rule is defined and centos7cis_firewall_default_deny_rule
   tags:
     - level1
     - patch
@@ -417,8 +427,9 @@
     action: append
     state: present
   when:
+    - centos7cis_firewall is defined
     - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_default_deny_rule
+    - centos7cis_firewall_default_deny_rule is defined and centos7cis_firewall_default_deny_rule
   tags:
     - level1
     - patch
@@ -434,8 +445,9 @@
     action: append
     state: present
   when:
+    - centos7cis_firewall is defined
     - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_loopback_rule
+    - centos7cis_firewall_loopback_rule is defined and centos7cis_firewall_loopback_rule
   tags:
     - level1
     - patch
@@ -451,8 +463,9 @@
     action: append
     state: present
   when:
+    - centos7cis_firewall is defined
     - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_loopback_rule
+    - centos7cis_firewall_loopback_rule is defined and centos7cis_firewall_loopback_rule
   tags:
     - level1
     - patch
@@ -468,8 +481,9 @@
     action: append
     state: present
   when:
+    - centos7cis_firewall is defined
     - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_loopback_rule
+    - centos7cis_firewall_loopback_rule is defined and centos7cis_firewall_loopback_rule
   tags:
     - level1
     - patch
@@ -485,8 +499,9 @@
     ctstate: NEW,ESTABLISHED
     jump: ACCEPT
   when:
+    - centos7cis_firewall is defined
     - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_outbound_rule
+    - centos7cis_firewall_outbound_rule is defined and centos7cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -502,8 +517,9 @@
     ctstate: NEW,ESTABLISHED
     jump: ACCEPT
   when:
+    - centos7cis_firewall is defined
     - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_outbound_rule
+    - centos7cis_firewall_outbound_rule is defined and centos7cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -519,8 +535,9 @@
     ctstate: NEW,ESTABLISHED
     jump: ACCEPT
   when:
+    - centos7cis_firewall is defined
     - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_outbound_rule
+    - centos7cis_firewall_outbound_rule is defined and centos7cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -536,8 +553,9 @@
     ctstate: ESTABLISHED
     jump: ACCEPT
   when:
+    - centos7cis_firewall is defined
     - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_outbound_rule
+    - centos7cis_firewall_outbound_rule is defined and centos7cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -553,8 +571,9 @@
     ctstate: ESTABLISHED
     jump: ACCEPT
   when:
+    - centos7cis_firewall is defined
     - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_outbound_rule
+    - centos7cis_firewall_outbound_rule is defined and centos7cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -570,8 +589,9 @@
     ctstate: ESTABLISHED
     jump: ACCEPT
   when:
+    - centos7cis_firewall is defined
     - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_outbound_rule
+    - centos7cis_firewall_outbound_rule is defined and centos7cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -581,12 +601,15 @@
 - name: "SCORED | 3.6.5 | PATCH | Ensure firewall rules exist for all open ports"
   debug:
     msg: "Ensure firewall rules exist for all open ports"
-  when: centos7cis_firewall == "iptables"
+  when:
+    - centos7cis_firewall is defined
+    - centos7cis_firewall == "iptables"
   tags:
     - level1
     - patch
     - rule_3.6.5
     - low
+
 
 - name: "NOTSCORED | 3.7 | PATCH | Ensure wireless interfaces are disabled"
   command: /bin/true

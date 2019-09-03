@@ -15,6 +15,7 @@ centos7cis_section6: true
 ############################
 
 # Section AIDE #
+
 # Section 1.3.1 | Ensure AIDE is installed and configured
 centos7cis_config_aide: false
 
@@ -29,14 +30,12 @@ centos7cis_aide_cron:
   aide_month: '*'
   aide_weekday: '*'
 
-
 # 1.4.2 Bootloader password
 ##bootLOADER PASSWORD MOVED TO VAR_PROMPT
 centos7cis_bootloader_password: random
 centos7cis_set_boot_pass: false
 
 # SELinux Section #
-
 # Section 1.6.1.2 & 1.6.1.3 | Ensure SELinux state is enforcing and configured
 # true = SELinux is disabled | false = SELinux is enabled
 centos7cis_selinux_disable: false
@@ -60,6 +59,32 @@ centos7cis_update: false
 ############################
 ### Section 2 Parameters ###
 ############################
+
+# Section 1.6.1.2 & 1.6.1.3 | SELinux policy
+centos7cis_selinux_pol: targeted
+
+# MOTD Section #
+# Section 1.7.1.1 | Ensure message of the day is configured properly
+
+# Warning Banner Content (issue, issue.net, motd)
+centos7cis_warning_banner: |
+    Authorized uses only. All activity may be monitored and reported.
+
+# End Banner
+
+# System package updates #
+
+# Section 1.8 | Ensure updates of software repos and system packages are up-to-date | Run yum update
+centos7cis_yum_update: false
+
+############################
+### Section 2 Parameters ###
+############################
+# Set this to false to prevent disabling of services.
+# Value of true will disable all services not excluded or skipped using the var booleans below.
+# The disable_service_checks can also be enabled via the skip tag function by skipping "disable_service_checks" tag to the running playbook
+centos7cis_disable_service_checks: true
+
 
 # Service configuration booleans set true to keep service
 centos7cis_cups_server: false
@@ -106,6 +131,8 @@ centos7cis_rhnsd_required: false
 
 # Section 2.2.1.x | Time synchronization #
 # Time Synchronization - Use chrony or ntp(d)
+
+# Time Synchronization - chrony OR ntp(d)
 centos7cis_time_synchronization: chrony
 #centos7cis_time_Synchronization: ntp
 
@@ -119,10 +146,8 @@ centos7cis_time_synchronization_servers:
 # Set to 'true' if X Windows is needed in your environment
 centos7cis_xwindows_required: no
 
-
 # Section 2.2.3 | Ensure avahi server is not enabled
 centos7cis_avahi_server: false
-
 
 ############################
 ### Section 3 Parameters ###
@@ -135,24 +160,16 @@ centos7cis_avahi_server: false
 # if host only = false OR host and router = true
 centos7cis_is_router: false
 
-# IPv6 required
-centos7cis_ipv6_required: true
-
-# 3.4.2 | PATCH | Ensure /etc/hosts.allow is configured
-centos7cis_host_allow:
-    - "10.0.0.0/255.0.0.0"
-    - "172.16.0.0/255.240.0.0"
-    - "192.168.0.0/255.255.0.0"
 
 # 3.4.3 | Ensure /etc/hosts.deny is configured
 centos7cis_enable_hosts_deny: false
-
 
 # Section 3.6.1 | Ensure iptables is installed
 # Selection of firewall package to use below | default: iptables
 #iptables OR firewalld
 centos7cis_firewall: firewalld
 #centos7cis_firewall: iptables
+
 
 # Section 3.6.2 | Ensure default deny firewall policy
 centos7cis_firewall_default_deny_rule: false
@@ -165,26 +182,55 @@ centos7cis_firewall_outbound_rule: true
 ### Section 4 Parameters ###
 ############################
 
-# 4.1.2 | Enable auditd
+# 4.1.2 - Enable auditd
 centos7cis_enable_auditd: false
 
 # System Accounting and Logging
 # Set logging service to 'true'
 centos7cis_log_server: false
 
+# Enable system auditing | Select rsyslog or syslog_ng from the settings below #
+# rsyslog settings are sections 4.2.1.x
+# syslog_ng settings are sections 4.2.2.x
+
+# Section 4.2.1.x | rsyslog settings
+# IF using rsyslog, set to true and loghost_address should be reflected here
 centos7cis_rsyslog: false
 centos7cis_rsyslog_loghost_address: INSERT_DNS_NAME_HERE
+
+# Section 4.2.2.x | syslog_ng settings
+# IF using syslog_ng, set to true and loghost_address should be reflected here
 centos7cis_syslog_ng: false
 centos7cis_syslog_ng_loghost_address: INSERT_DNS_NAME_HERE
 
-# Section 5.2.8 | Ensure SSH root login is disabled
+############################
+### Section 5 Parameters ###
+############################
+
+# Section 5.2.9 | Ensure SSH root login is disabled
 centos7cis_permit_ssh_root_login_disabled: true
 
 # Section 5.3.1 | Ensure password creation requirements are configured
 centos7cis_password_creation_requirements: true
 
-centos7cis_password_expiration_90days: false
+# Section 5.4.1.1 | Ensure password expiration is 365 days or less
+centos7cis_password_expiration: false
 
+# Section 5.4.1.2 | Ensure minimum days between password changes is 7 or more
+centos7cis_password_minimum_days_password_change: true
+
+# Section 5.4.2 | Ensure system accounts are non-login
+centos7cis_ensure_system_accounts_are_non_login: true
+
+# Section 5.4.4 | Ensure default user umask is 027 or more restrictive
+rhel7cis_modify_default_user_umask: true
+rhel7cis_default_user_umask: 027
+
+############################
+### Section 6 Parameters ###
+############################
+
+# Section 6.2.8 | Ensure users' home directory permissions are 750 or more restrictive
 centos7cis_modify_user_homes: false
 
 centos7cis_vartmp:

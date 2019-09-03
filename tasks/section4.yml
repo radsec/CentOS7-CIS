@@ -42,7 +42,8 @@
       name: auditd
       state: started
       enabled: yes
-  when: centos7cis_enable_auditd
+  when:
+    - centos7cis_enable_auditd is defined and centos7cis_enable_auditd
   tags:
       - level2
       - high
@@ -256,23 +257,23 @@
   systemd:
     name: rsyslogd
     enabled: yes
-  when: centos7cis_rsyslog
+  when:
+    - centos7cis_rsyslog is defined and centos7cis_rsyslog
   tags:
       - level1
       - level2
-      - low
       - patch
       - rule_4.2.1.1
 
 - name: "NOTSCORED | 4.2.1.2 | PATCH | Ensure logging is configured"
   command: /bin/true
-  when: 
+  when:
+    - centos7cis_rsyslog is defined and centos7cis_log_server is defined
     - centos7cis_rsyslog
     - centos7cis_log_server
   tags:
       - level1
       - level2
-      - low
       - patch
       - rule_4.2.1.2
 
@@ -282,11 +283,11 @@
       regexp: '^\$FileCreateMode'
       line: '$FileCreateMode 0640'
       create: yes
-  when: centos7cis_rsyslog
+  when:
+    - centos7cis_rsyslog is defined and centos7cis_rsyslog
   tags:
       - level1
       - level2
-      - low
       - patch
       - rule_4.2.1.3
 
@@ -295,11 +296,11 @@
     dest: /etc/rsyslog.conf
     regexp: "^\\*\\.\\*"
     line: "*.* @@{{ centos7cis_rsyslog_loghost_address }}"
-  when: centos7cis_rsyslog
+  when:
+    - centos7cis_rsyslog is defined and centos7cis_rsyslog
   tags:
       - level1
       - level2
-      - low
       - patch
       - rule_4.2.1.4
 
@@ -309,7 +310,8 @@
       regexp: '^\$ModLoad imtcp'
       line: '# $ModLoad imtcp'
       create: yes
-  when: 
+  when:
+    - centos7cis_rsyslog is defined and centos7cis_rsyslog is defined
     - not centos7cis_log_server
     - centos7cis_rsyslog
   tags:
@@ -324,7 +326,8 @@
       regexp: '^\$InputTCPServerRun 514'
       line: '# $InputTCPServerRun 514'
       create: yes
-  when: 
+  when:
+    - centos7cis_rsyslog is defined and centos7cis_rsyslog is defined
     - not centos7cis_log_server
     - centos7cis_rsyslog
   tags:
@@ -339,9 +342,10 @@
       regexp: '^\$ModLoad imtcp'
       line: '$ModLoad imtcp'
       create: yes
-  when: 
-    - centos7cis_log_server
+  when:
+    - centos7cis_rsyslog is defined and centos7cis_log_server is defined
     - centos7cis_rsyslog
+    - centos7cis_log_server
   tags:
       - level1
       - level2
@@ -354,20 +358,23 @@
       regexp: '^\$InputTCPServerRun 514'
       line: '$InputTCPServerRun 514'
       create: yes
-  when: 
-    - centos7cis_log_server
+  when:
+    - centos7cis_rsyslog is defined and centos7cis_log_server is defined
     - centos7cis_rsyslog
+    - centos7cis_log_server
   tags:
       - level1
       - level2
       - patch
       - rule_4.2.1.5
 
+
 - name: "SCORED | 4.2.2.1 | PATCH | Ensure syslog-ng service is enabled"
   systemd:
     name: syslog-ng
     enabled: yes
-  when: centos7cis_rsyslog
+  when:
+    - centos7cis_rsyslog is defined and centos7cis_rsyslog
   tags:
       - level1
       - level2
@@ -376,14 +383,15 @@
 
 - name: "NOTSCORED | 4.2.2.2 | PATCH | Ensure logging is configured"
   command: /bin/true
-  when: 
+  when:
+    - centos7cis_rsyslog is defined and centos7cis_log_server is defined
     - centos7cis_rsyslog
     - centos7cis_log_server
   tags:
-    - level1
-    - level2
-    - patch
-    - rule_4.2.2.2
+      - level1
+      - level2
+      - patch
+      - rule_4.2.2.2
 
 - name: "SCORED | 4.2.2.3 | PATCH | Ensure syslog-ng default file permissions configured"
   lineinfile:
@@ -391,7 +399,8 @@
     regexp: '^perm(0640);'
     line: '^perm(0640);'
     create: yes
-  when: 
+  when:
+    - centos7cis_syslog_ng is defined and centos7cis_log_server is defined
     - centos7cis_syslog_ng
     - centos7cis_log_server
   tags:
@@ -402,7 +411,8 @@
 
 - name: "NOTSCORED | 4.2.2.4 | PATCH | Ensure syslog-ng is configured to send logs to a remote log host"
   command: /bin/true
-  when: 
+  when:
+    - centos7cis_syslog_ng is defined and centos7cis_log_server is defined
     - centos7cis_syslog_ng
     - centos7cis_log_server
   tags:
@@ -413,9 +423,10 @@
 
 - name: "NOTSCORED | 4.2.2.5 | PATCH | Ensure remote syslog-ng messages are only accepted on designated log hosts"
   command: /bin/true
-  when: 
+  when:
+    - centos7cis_syslog_ng is defined and centos7cis_log_server is defined
     - centos7cis_syslog_ng
-    - centos7_cis_log_server
+    - centos7cis_log_server
   tags:
       - level1
       - level2
@@ -426,7 +437,8 @@
   yum:
     name: rsyslog
     state: present
-  when: centos7cis_rsyslog
+  when:
+    - centos7cis_rsyslog is defined and centos7cis_rsyslog
   tags:
       - level1
       - level2
@@ -438,7 +450,8 @@
   yum:
     name: syslog-ng
     state: present
-  when: centos7cis_syslog_ng
+  when:
+    - centos7cis_syslog_ng is defined and centos7cis_syslog_ng
   tags:
       - level1
       - level2

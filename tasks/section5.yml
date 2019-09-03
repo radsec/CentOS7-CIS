@@ -236,7 +236,8 @@
       dest: /etc/ssh/sshd_config
       regexp: '^PermitRootLogin'
       line: 'PermitRootLogin no'
-  when: centos7cis_permit_ssh_root_login_disabled
+  when:
+    - centos7cis_permit_ssh_root_login_disabled is defined and centos7cis_permit_ssh_root_login_disabled
   tags:
       - level1
       - level2
@@ -357,7 +358,8 @@
       - { key: 'ucredit', value: '-1' }
       - { key: 'ocredit', value: '-1' }
       - { key: 'lcredit', value: '-1' }
-  when: centos7cis_password_creation_requirements
+  when:
+    - centos7cis_password_creation_requirements is defined and centos7cis_password_creation_requirements
   tags:
       - level1
       - level2
@@ -663,7 +665,7 @@
 #     - level1
 #     - low
 #     - patch
-#     - rule_5.3.3  
+#     - rule_5.3.3
 
 - name: "SCORED | 5.3.4 | PATCH | Ensure password hashing algorithm is SHA-512"
   command: authconfig --passalgo=sha512 --update
@@ -679,7 +681,8 @@
       dest: /etc/login.defs
       regexp: '^PASS_MAX_DAYS'
       line: 'PASS_MAX_DAYS 90'
-  when: centos7cis_password_expiration
+  when:
+    - centos7cis_password_expiration is defined and centos7cis_password_expiration
   tags:
       - level1
       - level2
@@ -693,7 +696,8 @@
       dest: /etc/login.defs
       regexp: '^PASS_MIN_DAYS'
       line: 'PASS_MIN_DAYS 7'
-  when: centos7cis_password_expiration
+  when:
+    - centos7cis_password_minimum_days_password_change is defined and centos7cis_password_minimum_days_password_change
   tags:
       - level1
       - level2
@@ -734,23 +738,25 @@
 
 - name: "SCORED | 5.4.2 | PATCH | Ensure system accounts are non-login"
   copy:
-    src: scripts/five_four_two.sh
-    dest: /opt/five_four_two.sh
+    src: scripts/rule_five_four_two.sh
+    dest: /opt/rule_five_four_two.sh
     owner: root
     group: root
     mode: 0700
-  when: centos7cis_ensure_system_accounts_are_non_login
+  when:
+    - centos7cis_ensure_system_accounts_are_non_login is defined and centos7cis_ensure_system_accounts_are_non_login
   tags:
     - level1
+    - low
     - patch
     - rule_5.4.2
-    - low
 
 - name: "SCORED | 5.4.2 | PATCH | Ensure system accounts are non-login"
-  shell: /opt/five_four_two.sh
+  shell: /opt/rule_five_four_two.sh
   args:
     executable: /bin/bash
-  when: centos7cis_ensure_system_accounts_are_non_login
+  when:
+    - centos7cis_ensure_system_accounts_are_non_login is defined and centos7cis_ensure_system_accounts_are_non_login
   tags:
     - level1
     - patch
@@ -759,12 +765,13 @@
 
 - name: "SCORED | 5.4.2 | PATCH | Ensure system accounts are non-login"
   copy:
-    src: scripts/five_four_two.sh
-    dest: /opt/five_four_two.sh
+    src: scripts/rule_five_four_two.sh
+    dest: /opt/rule_five_four_two.sh
     owner: root
     group: root
     state: absent
-  when: centos7cis_ensure_system_accounts_are_non_login
+  when:
+    - centos7cis_ensure_system_accounts_are_non_login is defined and centos7cis_ensure_system_accounts_are_non_login
   tags:
     - level1
     - patch
@@ -808,14 +815,46 @@
       - low
 
 - name: "SCORED | 5.4.4 | PATCH | Ensure default user umask is 027 or more restrictive"
+  lineinfile:
+    state: present
+    dest: /etc/bashrc
+    regexp: 'umask'
+    line: 'umask {{ centos7cis_default_user_umask }}'
+  when:
+    - centos7cis_modify_default_user_umask is defined and centos7cis_modify_default_user_umask
+  tags:
+    - level1
+    - level2
+    - patch
+    - rule_5.4.4
+    - low
+
+- name: "SCORED | 5.4.4 | PATCH | Ensure default user umask is 027 or more restrictive"
+  lineinfile:
+      state: present
+      dest: /etc/profile
+      regexp: 'umask'
+      line: 'umask {{ centos7cis_default_user_umask }}'
+  when:
+    - centos7cis_modify_default_user_umask is defined and centos7cis_modify_default_user_umask
+  tags:
+    - level1
+    - level2
+    - patch
+    - rule_5.4.4
+    - low
+
+- name: "SCORED | 5.4.4 | PATCH | Ensure default user umask is 027 or more restrictive"
   find:
     paths: /etc/profile.d/
     recurse: yes
     patterns: "*.sh"
   register: profiled_dir
-  when: centos7cis_modify_default_user_umask
+  when:
+    - centos7cis_modify_default_user_umask is defined and centos7cis_modify_default_user_umask
   tags:
     - level1
+    - level2
     - patch
     - rule_5.4.4
     - low
@@ -829,50 +868,15 @@
     backup: yes
   with_items: profiled_dir.files.path
   ignore_errors: yes
-  when: centos7cis_modify_default_user_umask
+  when:
+    - centos7cis_modify_default_user_umask is defined and centos7cis_modify_default_user_umask
   tags:
     - level1
+    - leve2
     - patch
     - rule_5.4.4
     - low
 
-
-# Old 5.4.4
-# - name: "SCORED | 5.4.4 | PATCH | Ensure default user umask is 027 or more restrictive - /etc/bashrc"
-#   replace:
-#     path: /etc/bashrc
-#     regexp: '(^\s+umask) 002'
-#     replace: '\1 027'
-#   tags:
-#     - level1
-#     - level2
-#     - medium
-#     - patch
-#     - rule_5.4.4
-
-- name: "SCORED | 5.4.5 | PATCH | Ensure default user shell timeout is 900 seconds or less"
-  lineinfile:
-    state: present
-    dest: /etc/bashrc
-    regexp: '^TMOUT'
-    line: 'TMOUT=600'
-  tags:
-    - level2
-    - patch
-    - rule_5.4.5
-    - low
-
-- name: "SCORED | 5.4.5 | PATCH | Ensure default user shell timeout is 900 seconds or less"
-  lineinfile:
-    state: present
-    dest: /etc/profile
-    regexp: '^TMOUT'
-    line: 'TMOUT=600'
-  tags:
-    - level2
-    - patch
-    - rule_5.4.5
-    - low
 
 - name: "NOTSCORED | 5.5 | PATCH | Ensure root login is restricted to system console"
   command: /bin/true
