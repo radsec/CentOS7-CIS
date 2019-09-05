@@ -367,7 +367,6 @@
       - patch
       - rule_5.3.1
 
-# New 5.3.2
 - name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | system-auth"
   pamd:
     name: system-auth
@@ -506,7 +505,6 @@
     - rule_5.3.2
     - low
 
-# Prior 5.3.2
 # - name: "NOTSCORED | 5.3.2_PRE | Create SymLn for /etc/pam.d/system-auth-local to enable persistent config"
 #   copy:
 #     src: /etc/pam.d/system-auth-ac
@@ -583,7 +581,6 @@
 #     - patch
 #     - rule_5.3.2
 
-# New 5.3.3
 - name: "SCORED | 5.3.3 | Ensure password reuse is limited | password-auth"
   pamd:
     name: password-auth
@@ -614,7 +611,6 @@
     - rule_5.3.3
     - low
 
-# Prior 5.3.3
 # - name: "SCORED | 5.3.3 | PATCH | Ensure password reuse is limited | /etc/pam.d/password-auth | CHECK"
 #   command: grep -oh "\w*remember=5\w*" /etc/pam.d/password-auth
 #   register: authChk
@@ -743,6 +739,7 @@
     owner: root
     group: root
     mode: 0700
+  changed_when: no
   when:
     - centos7cis_ensure_system_accounts_are_non_login is defined and centos7cis_ensure_system_accounts_are_non_login
   tags:
@@ -770,6 +767,7 @@
     owner: root
     group: root
     state: absent
+  changed_when: no
   when:
     - centos7cis_ensure_system_accounts_are_non_login is defined and centos7cis_ensure_system_accounts_are_non_login
   tags:
@@ -880,6 +878,7 @@
 
 - name: "NOTSCORED | 5.5 | PATCH | Ensure root login is restricted to system console"
   command: /bin/true
+  changed_when: no
   tags:
       - level1
       - level2
