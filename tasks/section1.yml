@@ -295,8 +295,8 @@
       name: autofs
       enabled: no
   when:
-    - not centos7cis_allow_autofs
-    - autofs_service_status.stdout == "loaded"
+    - centos7cis_allow_autofs is defined and autofs_service_status is defined
+    - not centos7cis_allow_autofs and autofs_service_status.stdout == "loaded"
   tags:
       - level1
       - low
@@ -378,7 +378,8 @@
   command: /usr/sbin/aide --init -B 'database_out=file:/var/lib/aide/aide.db.gz'
   args:
       creates: /var/lib/aide/aide.db.gz
-  when: centos7cis_config_aide
+  when:
+    - centos7cis_config_aide is defined and centos7cis_config_aide
   async: 45
   poll: 0
   tags:
@@ -427,7 +428,9 @@
       owner: root
       group: root
       mode: 0600
-  when: grub_cfg.stat.exists and grub_cfg.stat.islnk
+  when:
+    - grub_cfg is defined
+    - grub_cfg.stat.exists and grub_cfg.stat.islnk
   tags:
       - level1
       - low
@@ -438,9 +441,10 @@
 
 - name: "SCORED | 1.4.2 | PATCH | Ensure bootloader password is set"
   grub_crypt:
-      password: "{{ centos7cis_bootloader_password }}"
+    password: "{{ centos7cis_bootloader_password }}"
   register: grub_pass
-  when: centos7cis_set_boot_pass
+  when:
+    - centos7cis_set_boot_pass is defined and centos7cis_set_boot_pass
   tags:
       - level1
       - high
@@ -453,7 +457,9 @@
   copy:
       dest: /boot/grub2/user.cfg
       content: "GRUB2_PASSWORD={{ grub_pass.passhash }}"
-  when: centos7cis_set_boot_pass and grub_pass is defined and grub_pass.passhash is defined and grub_pass.passhash != ''
+  when:
+    - centos7cis_set_boot_pass is defined and grub_pass is defined and grub_pass.passhash is defined
+    - centos7cis_set_boot_pass and grub_pass.passhash != ''
   notify: generate new grub config
   tags:
       - level1
@@ -530,7 +536,9 @@
 
 - name: "SCORED | 1.5.4 | PATCH | Ensure prelink is disabled"
   command: prelink -ua
-  when: prelink_installed.rc == 0
+  when:
+    - prelink_installed is defined
+    - prelink_installed.rc == 0
   tags:
       - level1
       - low
@@ -568,7 +576,9 @@
       conf: /etc/selinux/config
       policy: "{{ centos7cis_selinux_pol }}"
       state: enforcing
-  when: not centos7cis_selinux_disable
+  when:
+    - centos7cis_selinux_disable is defined
+    - not centos7cis_selinux_disable
   tags:
       - level2
       - scored
@@ -581,7 +591,9 @@
       conf: /etc/selinux/config
       policy: "{{ centos7cis_selinux_pol }}"
       state: enforcing
-  when: not centos7cis_selinux_disable
+  when:
+    - centos7cis_selinux_disable is defined
+    - not centos7cis_selinux_disable
   tags:
       - level2
       - scored
@@ -591,24 +603,24 @@
 
 - name: "SCORED | 1.6.1.4 | PATCH | Ensure SETroubleshoot is not installed"
   yum:
-      name: setroubleshoot
-      state: absent
+    name: setroubleshoot
+    state: absent
   tags:
-      - level2
-      - scored
-      - selinux
-      - patch
-      - rule_1.6.1.4
+    - level2
+    - scored
+    - selinux
+    - patch
+    - rule_1.6.1.4
 
 - name: "SCORED | 1.6.1.5 | PATCH | Ensure the MCS Translation Service (mcstrans) is not installed"
   yum:
-      name: mcstrans
-      state: absent
+    name: mcstrans
+    state: absent
   tags:
-      - level2
-      - scored
-      - patch
-      - rule_1.6.1.5
+    - level2
+    - scored
+    - patch
+    - rule_1.6.1.5
 
 - name: "SCORED | 1.6.2 | PATCH | Ensure SELinux is installed"
   yum:
@@ -707,12 +719,13 @@
 
 - name: "NOTSCORED | 1.8 | PATCH | Ensure updates, patches, and additional security software are installed"
   yum:
-    name: "*"
-    state: latest
-  when: centos7cis_update
+      name: "*"
+      state: latest
+  when:
+    - centos7cis_yum_update is defined and centos7cis_yum_update
   tags:
-    - level1
-    - level2
-    - notscored
-    - patch
-    - rule_1.8
+      - level1
+      - level2
+      - notscored
+      - patch
+      - rule_1.8
