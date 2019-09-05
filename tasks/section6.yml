@@ -1,5 +1,6 @@
 - name: "NOTSCORED | 6.1.1 | PATCH | Audit system file permissions"
   command: /bin/true
+  changed_when: no
   tags:
     - level2
     - patch
@@ -111,6 +112,7 @@
 
 - name: "SCORED | 6.1.10 | PATCH | Ensure no world writable files exist"
   command: /bin/true
+  changed_when: no
   tags:
     - level1
     - level2
@@ -119,6 +121,7 @@
 
 - name: "SCORED | 6.1.11 | PATCH | Ensure no unowned files or directories exist"
   command: /bin/true
+  changed_when: no
   tags:
     - level1
     - level2
@@ -127,6 +130,7 @@
 
 - name: "SCORED | 6.1.12 | PATCH | Ensure no ungrouped files or directories exist"
   command: /bin/true
+  changed_when: no
   tags:
     - level1
     - level2
@@ -135,6 +139,7 @@
 
 - name: "NOTSCORED | 6.1.13 | PATCH | Audit SUID executables"
   command: /bin/true
+  changed_when: no
   tags:
     - level1
     - level2
@@ -143,6 +148,7 @@
 
 - name: "NOTSCORED | 6.1.14 | PATCH | Audit SGID executables"
   command: /bin/true
+  changed_when: no
   tags:
     - level1
     - level2
@@ -152,7 +158,9 @@
 - name: "SCORED | 6.2.1 | PATCH | Ensure password fields are not empty"
   command: passwd -l {{ item }}
   with_items: "{{ empty_password_accounts.stdout_lines }}"
-  when: empty_password_accounts.rc
+  when:
+    - empty_password_accounts is defined
+    - empty_password_accounts.rc
   tags:
     - level1
     - level2
@@ -189,7 +197,9 @@
 - name: "SCORED | 6.2.5 | PATCH | Ensure root is the only UID 0 account"
   command: passwd -l {{ item }}
   with_items: "{{ uid_zero_accounts_except_root.stdout_lines }}"
-  when: uid_zero_accounts_except_root.rc
+  when:
+    - uid_zero_accounts_except_root is defined
+    - uid_zero_accounts_except_root.rc
   tags:
     - level1
     - level2
@@ -410,6 +420,7 @@
     owner: root
     group: root
     state: absent
+  changed_when: no
   tags:
     - rule_6.2.9
     - level1
@@ -476,6 +487,7 @@
     owner: root
     group: root
     state: absent
+  changed_when: no
   ignore_errors: "{{ ansible_check_mode }}"
   tags:
       - level1
