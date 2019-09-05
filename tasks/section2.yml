@@ -864,7 +864,7 @@
       name: openldap-clients
       state: absent
   when:
-    - not centos7cis_ad_ldap_joined_machine
+    - centos7cis_ad_ldap_joined_machine is defined and not centos7cis_ad_ldap_joined_machine
     - centos7cis_openldap_clients_required is defined
     - not centos7cis_openldap_clients_required
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
