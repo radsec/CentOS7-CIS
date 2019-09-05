@@ -13,7 +13,9 @@
 - name: "SCORED | 2.1.1 | PATCH | Ensure chargen services are not enabled | chargen-dgram"
   command: chkconfig chargen-dgram off
   notify: restart xinetd
-  when: chargen_dgram_service.stat.exists
+  when:
+    - chargen_dgram_service is defined
+    - chargen_dgram_service.stat.exists
   tags:
       - level1
       - low
@@ -37,7 +39,9 @@
 - name: "SCORED | 2.1.1 | PATCH | Ensure chargen services are not enabled | chargen-stream"
   command: chkconfig chargen-stream off
   notify: restart xinetd
-  when: chargen_stream_service.stat.exists
+  when:
+    - chargen_stream_service is defined
+    - chargen_stream_service.stat.exists
   tags:
       - level1
       - low
@@ -60,7 +64,9 @@
 - name: "SCORED | 2.1.2 | PATCH | Ensure daytime services are not enabled | daytime-dgram"
   command: chkconfig daytime-dgram off
   notify: restart xinetd
-  when: daytime_dgram_service.stat.exists
+  when:
+    - daytime_dgram_service is defined
+    - daytime_dgram_service.stat.exists
   tags:
       - level1
       - low
@@ -82,7 +88,9 @@
 - name: "SCORED | 2.1.2 | PATCH | Ensure daytime services are not enabled | daytime-stream"
   command: chkconfig daytime-stream off
   notify: restart xinetd
-  when: daytime_stream_service.stat.exists
+  when:
+    - daytime_stream_service is defined
+    - daytime_stream_service.stat.exists
   tags:
       - level1
       - low
@@ -103,7 +111,9 @@
 - name: "SCORED | 2.1.3 | PATCH | Ensure discard services are not enabled | discard-dgram"
   command: chkconfig discard-dgram off
   notify: restart xinetd
-  when: discard_dgram_service.stat.exists
+  when:
+    - discard_dgram_service is defined
+    - discard_dgram_service.stat.exists
   tags:
       - level1
       - low
@@ -125,7 +135,9 @@
 - name: "SCORED | 2.1.3 | PATCH | Ensure discard services are not enabled | discard-stream"
   command: chkconfig discard-stream off
   notify: restart xinetd
-  when: discard_stream_service.stat.exists
+  when:
+    - discard_stream_service is defined
+    - discard_stream_service.stat.exists
   tags:
       - level1
       - low
@@ -147,7 +159,9 @@
 - name: "SCORED | 2.1.4 | PATCH | Ensure echo services are not enabled | echo-dgram"
   command: chkconfig echo-dgram off
   notify: restart xinetd
-  when: echo_dgram_service.stat.exists
+  when:
+    - echo_dgram_service is defined
+    - echo_dgram_service.stat.exists
   tags:
       - level1
       - low
@@ -168,7 +182,9 @@
 - name: "SCORED | 2.1.4 | PATCH | Ensure echo services are not enabled | echo-stream"
   command: chkconfig echo-stream off
   notify: restart xinetd
-  when: echo_stream_service.stat.exists
+  when:
+     - echo_stream_service is defined
+     - echo_stream_service.stat.exists
   tags:
       - level1
       - low
@@ -190,7 +206,9 @@
 - name: "SCORED | 2.1.5 | PATCH | Ensure time services are not enabled | time-dgram"
   command: chkconfig time-dgram off
   notify: restart xinetd
-  when: time_dgram_service.stat.exists
+  when:
+    - time_dgram_service is defined
+    - time_dgram_service.stat.exists
   tags:
       - level1
       - low
@@ -212,7 +230,9 @@
 - name: "SCORED | 2.1.5 | PATCH | Ensure time services are not enabled | time-stream"
   command: chkconfig time-stream off
   notify: restart xinetd
-  when: time_stream_service.stat.exists
+  when:
+    - time_stream_service is defined
+    - time_stream_service.stat.exists
   tags:
       - level1
       - low
@@ -234,7 +254,9 @@
 - name: "SCORED | 2.1.6 | PATCH | Ensure tftp server is not enabled"
   command: chkconfig tftp off
   notify: restart xinetd
-  when: tftp_service.stat.exists and centos7cis_tftp_server == false
+  when:
+    - tftp_service is defined and centos7cis_tftp_server is defined
+    - tftp_service.stat.exists and not centos7cis_tftp_server
   tags:
       - level1
       - low
@@ -244,17 +266,18 @@
 
 - name: "SCORED | 2.1.7 | PATCH | Ensure xinetd is not enabled"
   service:
-      name: xinetd
-      state: stopped
-      enabled: no
+    name: xinetd
+    state: stopped
+    enabled: no
   when: 
-      - xinetd_service_status.stdout == "loaded" and not centos7cis_xinetd_required
+    - xinetd_service_status is defined and centos7cis_xinetd_required is defined
+    - xinetd_service_status.stdout == "loaded" and not centos7cis_xinetd_required
   tags:
-      - level1
-      - low
-      - patch
-      - scored
-      - rule_2.1.7
+    - level1
+    - low
+    - patch
+    - scored
+    - rule_2.1.7
 
 - name: "NOTSCORED | 2.2.1.1 | PATCH | Ensure time synchronization is in use - service install"
   yum:
@@ -282,7 +305,9 @@
       name: ntpd
       state: stopped
       enabled: no
-  when: centos7cis_time_synchronization == "chrony" and ntpd_service_status.stdout == "loaded"
+  when:
+    - centos7cis_time_synchronization is defined
+    - centos7cis_time_synchronization == "chrony" and ntpd_service_status.stdout == "loaded"
   tags:
       - level1
       - low
@@ -295,7 +320,9 @@
       state: stopped
       enabled: no
   ignore_errors: yes
-  when: centos7cis_time_synchronization == "ntp" and chronyd_service_status.stdout == "loaded"
+  when:
+    - centos7cis_time_synchronization is defined
+    - centos7cis_time_synchronization == "ntp" and chronyd_service_status.stdout == "loaded"
   tags:
       - level1
       - low
@@ -309,7 +336,9 @@
       owner: root
       group: root
       mode: 0644
-  when: centos7cis_time_synchronization == "ntp"
+  when:
+    - centos7cis_time_synchronization is defined
+    - centos7cis_time_synchronization == "ntp"
   tags:
       - level1
       - low
@@ -321,7 +350,9 @@
       dest: /etc/sysconfig/ntpd
       regexp: "^(#)?OPTIONS"
       line: "OPTIONS=\"-u ntp:ntp\""
-  when: centos7cis_time_synchronization == "ntp"
+  when:
+    - centos7cis_time_synchronization is defined
+    - centos7cis_time_synchronization == "ntp"
   tags:
       - level1
       - low
@@ -333,7 +364,9 @@
       dest: /usr/lib/systemd/system/ntpd.service
       regexp: "^(#)?ExecStart"
       line: "ExecStart=/usr/sbin/ntpd -u ntp:ntp $OPTIONS"
-  when: centos7cis_time_synchronization == "ntp"
+  when:
+    - centos7cis_time_synchronization is defined
+    - centos7cis_time_synchronization == "ntp"
   tags:
       - level1
       - low
@@ -347,7 +380,9 @@
       owner: root
       group: root
       mode: 0644
-  when: centos7cis_time_synchronization == "chrony"
+  when:
+    - centos7cis_time_synchronization is defined
+    - centos7cis_time_synchronization == "chrony"
   tags:
       - level1
       - low
@@ -361,7 +396,9 @@
       line: "OPTIONS=\"-u chrony\""
       state: present
       create: yes
-  when: centos7cis_time_synchronization == "chrony"
+  when:
+    - centos7cis_time_synchronization is defined
+    - centos7cis_time_synchronization == "chrony"
   tags:
       - level1
       - low
@@ -370,26 +407,32 @@
 
 - name: "SCORED | 2.2.2 | PATCH | Ensure X Window System is not installed"
   yum:
-      name: "{{item}}"
-      state: absent
-  when: not centos7cis_xwindows_required
+    name: "{{item}}"
+    state: absent
+  when:
+    - centos7cis_xwindows_required is defined and  not centos7cis_xwindows_required
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   with_items:
-      - "@X Window System"
-      - "xorg-x11*"
+    - "@X Window System"
+    - "xorg-x11*"
   tags:
-      - level1
-      - low
-      - scored
-      - xwindows
-      - patch
-      - rule_2.2.2
+    - level1
+    - low
+    - scored
+    - xwindows
+    - patch
+    - rule_2.2.2
+    - disable_service_checks
 
 - name: "SCORED | 2.2.3 | PATCH | Ensure Avahi Server is not enabled"
   service:
       name: avahi-daemon
       state: stopped
       enabled: no
-  when: centos7cis_avahi_server == false and avahi_service_status.stdout == "loaded"
+  when:
+    - centos7cis_avahi_server is defined
+    - not centos7cis_avahi_server and avahi_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
@@ -398,13 +441,17 @@
       - services
       - patch
       - rule_2.2.3
+      - disable_service_checks
 
 - name: "SCORED | 2.2.4 | PATCH | Ensure CUPS is not enabled"
   service:
       name: cups
       state: stopped
       enabled: no
-  when: centos7cis_cups_server == false and cups_service_status.stdout == "loaded"
+  when:
+    - centos7cis_cups_server is defined
+    - not centos7cis_cups_server and cups_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
@@ -413,13 +460,17 @@
       - services
       - patch
       - rule_2.2.4
+      - disable_service_checks
 
 - name: "SCORED | 2.2.5 | PATCH | Ensure DHCP Server is not enabled"
   service:
       name: dhcpd
       state: stopped
       enabled: no
-  when: centos7cis_dhcp_server == false and dhcpd_service_status.stdout == "loaded"
+  when:
+    - centos7cis_dhcp_server is defined
+    - not centos7cis_dhcp_server and dhcpd_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
@@ -428,13 +479,17 @@
       - services
       - patch
       - rule_2.2.5
+      - disable_service_checks
 
 - name: "SCORED | 2.2.6 | PATCH | Ensure LDAP server is not enabled"
   service:
       name: slapd
       state: stopped
       enabled: no
-  when: centos7cis_ldap_server == false and slapd_service_status.stdout == "loaded"
+  when:
+    - centos7cis_ldap_server is defined
+    - not centos7cis_ldap_server and slapd_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
@@ -443,13 +498,17 @@
       - services
       - patch
       - rule_2.2.6
+      - disable_service_checks
 
 - name: "SCORED | 2.2.7 | PATCH | Ensure NFS and RPC are not enabled"
   service:
       name: nfs
       state: stopped
       enabled: no
-  when: centos7cis_nfs_rpc_server == false and nfs_service_status.stdout == "loaded"
+  when:
+    - centos7cis_nfs_rpc_server is defined
+    - not centos7cis_nfs_rpc_server and nfs_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
@@ -459,13 +518,17 @@
       - services
       - patch
       - rule_2.2.7
+      - disable_service_checks
 
 - name: "SCORED | 2.2.7 | PATCH | Ensure NFS and RPC are not enabled"
   service:
       name: rpcbind
       state: stopped
       enabled: no
-  when: centos7cis_nfs_rpc_server == false and rpcbind_service_status.stdout == "loaded"
+  when:
+    - centos7cis_nfs_rpc_server is defined
+    - not centos7cis_nfs_rpc_server and rpcbind_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
@@ -475,169 +538,225 @@
       - services
       - patch
       - rule_2.2.7
+      - disable_service_checks
 
 - name: "SCORED | 2.2.8 | PATCH | Ensure DNS Server is not enabled"
   service:
       name: named
       state: stopped
       enabled: no
-  when: centos7cis_named_server == false and named_service_status.stdout == "loaded"
+  when:
+    - centos7cis_named_server is defined
+    - not centos7cis_named_server and named_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.2.8
+      - disable_service_checks
 
 - name: "SCORED | 2.2.9 | PATCH | Ensure FTP Server is not enabled"
   service:
       name: vsftpd
       state: stopped
       enabled: no
-  when: centos7cis_vsftpd_server == false and vsftpd_service_status.stdout == "loaded"
+  when:
+    - centos7cis_vsftpd_server is defined
+    - not centos7cis_vsftpd_server and vsftpd_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.2.9
+      - disable_service_checks
 
 - name: "SCORED | 2.2.10 | PATCH | Ensure HTTP server is not enabled"
   service:
       name: httpd
       state: stopped
       enabled: no
-  when: centos7cis_httpd_server == false and httpd_service_status.stdout == "loaded"
+  when:
+    - centos7cis_httpd_server is defined
+    - not centos7cis_httpd_server and httpd_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.2.10
+      - disable_service_checks
 
 - name: "SCORED | 2.2.11 | PATCH | Ensure IMAP and POP3 server is not enabled"
   service:
       name: dovecot
       state: stopped
       enabled: no
-  when: centos7cis_dovecot_server == false and dovecot_service_status.stdout == "loaded"
+  when:
+    - centos7cis_dovecot_server is defined
+    - not centos7cis_dovecot_server and dovecot_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.2.11
+      - disable_service_checks
 
 - name: "SCORED | 2.2.12 | PATCH | Ensure Samba is not enabled"
   service:
       name: smb
       state: stopped
       enabled: no
-  when: centos7cis_smb_server == false and smb_service_status.stdout == "loaded"
+  when:
+    - centos7cis_smb_server is defined
+    - not centos7cis_smb_server and smb_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - medium
       - patch
       - rule_2.2.12
+      - disable_service_checks
 
 - name: "SCORED | 2.2.13 | PATCH | Ensure HTTP Proxy Server is not enabled"
   service:
       name: squid
       state: stopped
       enabled: no
-  when: centos7cis_squid_server == false and squid_service_status.stdout == "loaded"
+  when:
+    - centos7cis_squid_server is defined
+    - not centos7cis_squid_server and squid_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.2.13
+      - disable_service_checks
 
 - name: "SCORED | 2.2.14 | PATCH | Ensure SNMP Server is not enabled"
   service:
       name: snmpd
       state: stopped
       enabled: no
-  when: centos7cis_snmp_server == false and snmpd_service_status.stdout == "loaded"
+  when:
+    - centos7cis_snmp_server is defined
+    - not centos7cis_snmp_server and snmpd_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.2.14
+      - disable_service_checks
 
 - name: "SCORED | 2.2.15 | PATCH | Ensure mail transfer agent is configured for local-only mode"
   lineinfile:
       dest: /etc/postfix/main.cf
       regexp: "^(#)?inet_interfaces"
-      line: "inet_interfaces = localhost"
-  when: centos7cis_is_mail_server == false and postfix_installed.rc == 0
+      line: "inet_interfaces = loopback-only"
+  when:
+    - centos7cis_is_mail_server is defined
+    - not centos7cis_is_mail_server and postfix_installed.rc == 0
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.2.15
+      - disable_service_checks
 
 - name: "SCORED | 2.2.16 | PATCH | Ensure NIS Server is not enabled"
   service:
       name: ypserv
       state: stopped
       enabled: no
-  when: centos7cis_nis_server == false and ypserv_service_status.stdout == "loaded"
+  when:
+    - centos7cis_nis_server is defined
+    - not centos7cis_nis_server and ypserv_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.2.16
+      - disable_service_checks
 
 - name: "SCORED | 2.2.17 | PATCH | Ensure rsh server is not enabled | rsh"
   service:
       name: rsh.socket
       state: stopped
       enabled: no
-  when: centos7cis_rsh_server == false and rsh_service_status.stdout == "loaded"
+  when:
+    - centos7cis_rsh_server is defined
+    - not centos7cis_rsh_server and rsh_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.2.17
+      - disable_service_checks
 
 - name: "SCORED | 2.2.17 | PATCH | Ensure rsh server is not enabled | rlogin"
   service:
       name: rlogin.socket
       state: stopped
       enabled: no
-  when: centos7cis_rsh_server == false and rlogin_service_status.stdout == "loaded"
+  when:
+    - centos7cis_rsh_server is defined
+    - not centos7cis_rsh_server and rlogin_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.2.17
+      - disable_service_checks
 
 - name: "SCORED | 2.2.17 | PATCH | Ensure rsh server is not enabled | rexec"
   service:
       name: rexec.socket
       state: stopped
       enabled: no
-  when: centos7cis_rsh_server == false and rexec_service_status.stdout == "loaded"
+  when:
+    - centos7cis_rsh_server is defined
+    - not centos7cis_rsh_server and rexec_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.2.17
+      - disable_service_checks
 
 - name: "SCORED | 2.2.18 | PATCH | Ensure telnet server is not enabled"
   service:
       name: telnet
       state: stopped
       enabled: no
-  when: centos7cis_telnet_server == false and telnet_service_status.stdout == "loaded"
+  when:
+    - centos7cis_telnet_server is defined
+    - not centos7cis_telnet_server and telnet_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.2.18
+      - disable_service_checks
 
 - name: "SCORED | 2.2.19 | PATCH | Ensure tftp server is not enabled"
   service:
       name: tftp
       state: stopped
       enabled: no
-  when: centos7cis_tftp_server == false and tftp_service_status.stdout == "loaded"
+  when:
+    - centos7cis_tftp_server is defined
+    - not centos7cis_tftp_server and tftp_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
@@ -646,82 +765,112 @@
       - tftp
       - patch
       - rule_2.2.19
+      - disable_service_checks
 
 - name: "SCORED | 2.2.20 | PATCH | Ensure rsync service is not enabled "
   service:
       name: rsyncd
       state: stopped
       enabled: no
-  when: centos7cis_rsyncd_server == false and rsyncd_service_status.stdout == "loaded"
+  when:
+    - centos7cis_rsyncd_server is defined
+    - not centos7cis_rsyncd_server and rsyncd_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.2.20
+      - disable_service_checks
 
 - name: "SCORED | 2.2.21 | PATCH | Ensure talk server is not enabled"
   service:
       name: ntalk
       state: stopped
       enabled: no
-  when: centos7cis_ntalk_server == false and ntalk_service_status.stdout == "loaded"
+  when:
+    - centos7cis_ntalk_server is defined
+    - not centos7cis_ntalk_server and ntalk_service_status.stdout == "loaded"
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.2.21
+      - disable_service_checks
 
 - name: "SCORED | 2.3.1 | PATCH | Ensure NIS Client is not installed"
   yum:
       name: ypbind
       state: absent
-  when: centos7cis_ypbind_required == false
+  when:
+    - centos7cis_ypbind_required is defined
+    - not centos7cis_ypbind_required
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.3.1
+      - disable_service_checks
 
 - name: "SCORED | 2.3.2 | PATCH | Ensure rsh client is not installed"
   yum:
       name: rsh
       state: absent
-  when: centos7cis_rsh_required == false
+  when:
+    - centos7cis_rsh_required is defined
+    - not centos7cis_rsh_required
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.3.2
+      - disable_service_checks
 
 - name: "SCORED | 2.3.3 | PATCH | Ensure talk client is not installed"
   yum:
       name: talk
       state: absent
-  when: centos7cis_talk_required == false
+  when:
+    - centos7cis_talk_required is defined
+    - not centos7cis_talk_required
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.3.3
+      - disable_service_checks
 
 - name: "SCORED | 2.3.4 | PATCH | Ensure telnet client is not installed"
   yum:
       name: telnet
       state: absent
-  when: centos7cis_telnet_required == false
+  when:
+    - centos7cis_telnet_required is defined
+    - not centos7cis_telnet_required
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - low
       - patch
       - rule_2.3.4
+      - disable_service_checks
 
 - name: "SCORED | 2.3.5 | PATCH | Ensure LDAP client is not installed"
   yum:
       name: openldap-clients
       state: absent
-  when: centos7cis_openldap_clients_required == false
+  when:
+    - not centos7cis_ad_ldap_joined_machine
+    - centos7cis_openldap_clients_required is defined
+    - not centos7cis_openldap_clients_required
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
       - level1
       - medium
       - patch
       - rule_2.3.5
+      - disable_service_checks

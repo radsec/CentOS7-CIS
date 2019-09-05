@@ -81,9 +81,14 @@ centos7cis_yum_update: false
 ### Section 2 Parameters ###
 ############################
 # Set this to false to prevent disabling of services.
-# Value of true will disable all services not excluded or skipped using the var booleans below.
+# Value of true will disable all services listed below not set to true.
+# Value of false will skip the disabling of services listed below.
 # The disable_service_checks can also be enabled via the skip tag function by skipping "disable_service_checks" tag to the running playbook
 centos7cis_disable_service_checks: true
+
+# Set this value to true if the machine is joined to AD/LDAP server.
+# Set this value to false if the machine is not joined to AD/LDAP server.
+centos7cis_ad_ldap_joined_machine: true
 
 
 # Service configuration booleans set true to keep service
