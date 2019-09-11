@@ -35,8 +35,8 @@
 - import_tasks: prelim.yml
   become: yes
   tags:
-      - prelim_tasks
-      - always
+    - prelim_tasks
+    - always
 
 - import_tasks: section1.yml
   become: yes
@@ -65,5 +65,5 @@
 - import_tasks: post.yml
   become: yes
   tags:
-      - post_tasks
-      - always
+    - post_tasks
+    - always
