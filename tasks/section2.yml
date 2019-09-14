@@ -654,19 +654,19 @@
 
 - name: "SCORED | 2.2.15 | PATCH | Ensure mail transfer agent is configured for local-only mode"
   lineinfile:
-      dest: /etc/postfix/main.cf
-      regexp: "^(#)?inet_interfaces"
-      line: "inet_interfaces = loopback-only"
+    dest: /etc/postfix/main.cf
+    regexp: "^(#)?inet_interfaces"
+    line: "inet_interfaces = loopback-only"
+  notify: systemctl restart postfix
   when:
     - centos7cis_is_mail_server is defined
     - not centos7cis_is_mail_server and postfix_installed.rc == 0
-    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
+    - centos7cis_disable_service_checks is defined
   tags:
-      - level1
-      - low
-      - patch
-      - rule_2.2.15
-      - disable_service_checks
+    - level1
+    - low
+    - patch
+    - rule_2.2.15
 
 - name: "SCORED | 2.2.16 | PATCH | Ensure NIS Server is not enabled"
   service:
