@@ -31,7 +31,7 @@ Copyright (c) 2015 MindPoint Group http://www.mindpointgroup.com
 
 as part of RHEL7-CIS.
 
-All other copyright for project CentOS7-CIS are held by 
+All other copyright for project CentOS7-CIS are held by
 
 Copyright (c) 2018-2019 Radsec
 

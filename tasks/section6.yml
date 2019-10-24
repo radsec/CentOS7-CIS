@@ -1,5 +1,8 @@
 - name: "NOTSCORED | 6.1.1 | PATCH | Audit system file permissions"
   command: /bin/true
+  changed_when: no
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
   tags:
     - level2
     - patch
@@ -11,9 +14,10 @@
     owner: root
     group: root
     mode: 0644
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - low
     - patch
     - rule_6.1.2
@@ -24,9 +28,10 @@
     owner: root
     group: root
     mode: 0000
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - low
     - patch
     - rule_6.1.3
@@ -37,9 +42,10 @@
     owner: root
     group: root
     mode: 0644
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - low
     - patch
     - rule_6.1.4
@@ -50,9 +56,10 @@
     owner: root
     group: root
     mode: 0000
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - low
     - patch
     - rule_6.1.5
@@ -63,9 +70,10 @@
     owner: root
     group: root
     mode: 0644
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - low
     - patch
     - rule_6.1.6
@@ -76,9 +84,10 @@
     owner: root
     group: root
     mode: 0000
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - low
     - patch
     - rule_6.1.7
@@ -89,9 +98,10 @@
     owner: root
     group: root
     mode: 0600
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - low
     - patch
     - rule_6.1.8
@@ -102,86 +112,114 @@
     owner: root
     group: root
     mode: 0600
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - low
     - patch
     - rule_6.1.9
 
 - name: "SCORED | 6.1.10 | PATCH | Ensure no world writable files exist"
   command: /bin/true
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - patch
     - rule_6.1.10
 
 - name: "SCORED | 6.1.11 | PATCH | Ensure no unowned files or directories exist"
   command: /bin/true
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - patch
     - rule_6.1.11
 
 - name: "SCORED | 6.1.12 | PATCH | Ensure no ungrouped files or directories exist"
   command: /bin/true
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - patch
     - rule_6.1.12
 
 - name: "NOTSCORED | 6.1.13 | PATCH | Audit SUID executables"
   command: /bin/true
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - patch
     - rule_6.1.13
 
 - name: "NOTSCORED | 6.1.14 | PATCH | Audit SGID executables"
   command: /bin/true
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - patch
     - rule_6.1.14
 
 - name: "SCORED | 6.2.1 | PATCH | Ensure password fields are not empty"
   command: passwd -l {{ item }}
   with_items: "{{ empty_password_accounts.stdout_lines }}"
-  when: empty_password_accounts.rc
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - empty_password_accounts is defined
+    - empty_password_accounts.rc
   tags:
     - level1
-    - level2
     - low
     - patch
     - rule_6.2.1
 
 - name: "SCORED | 6.2.2 | PATCH | Ensure no legacy '+' entries exist in /etc/passwd"
-  command: sed -i '/^+/ d' /etc/passwd
+  command: "sed -i '/^+/ d' /etc/passwd"
+  become: yes
+  args:
+    warn: no
+  ignore_errors: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - patch
     - rule_6.2.2
 
 - name: "SCORED | 6.2.3 | PATCH | Ensure no legacy '+' entries exist in /etc/shadow"
-  command: sed -i '/^+/ d' /etc/shadow
+  command: "sed -i '/^+/ d' /etc/shadow"
+  become: yes
+  args:
+    warn: no
+  ignore_errors: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - low
     - patch
     - rule_6.2.3
 
 - name: "SCORED | 6.2.4 | PATCH | Ensure no legacy '+' entries exist in /etc/group"
-  command: sed -i '/^+/ d' /etc/group
+  command: "sed -i '/^+/ d' /etc/group"
+  become: yes
+  args:
+    warn: no
+  ignore_errors: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
-    - level2
     - low
     - patch
     - rule_6.2.4
@@ -189,39 +227,65 @@
 - name: "SCORED | 6.2.5 | PATCH | Ensure root is the only UID 0 account"
   command: passwd -l {{ item }}
   with_items: "{{ uid_zero_accounts_except_root.stdout_lines }}"
-  when: uid_zero_accounts_except_root.rc
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - uid_zero_accounts_except is defined
+    - uid_zero_accounts_except_root.rc
   tags:
     - level1
-    - level2
     - low
     - patch
     - rule_6.2.5
+
+- name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
+  copy:
+    src: scripts/6.2.6.sh
+    dest: /opt/6.2.6.sh
+    owner: root
+    group: root
+    mode: 0700
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+  tags:
+    - rule_6.2.6
+    - low
+    - level1
+    - low
 
 - name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
   shell: /opt/6.2.6.sh
   args:
     executable: /bin/bash
   register: root_path_integrity
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.6
     - low
     - level1
     - low
 
-- name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
-  debug:
-    var: root_path_integrity.stdout_lines
-  when: root_path_integrity.stdout != ""
-  tags:
-    - rule_6.2.6
-    - low
-    - level1
-    - low
+# - name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
+#   debug:
+#     var: root_path_integrity.stdout_lines
+#   when:
+#     - centos7cis_level1 is defined and centos7cis_level1
+#     - root_path_integrity is defined
+#     - root_path_integrity.stdout != ""
+#   tags:
+#     - rule_6.2.6
+#     - low
+#     - level1
+#     - low
 
 - name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
   debug:
     msg: "PASS | 6.2.6 | root PATH integrity"
-  when: root_path_integrity.stdout == ""
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - root_path_integrity is defined
+    - root_path_integrity.stdout == ""
   tags:
     - rule_6.2.6
     - low
@@ -234,6 +298,9 @@
     owner: root
     group: root
     state: absent
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.6
     - low
@@ -247,6 +314,9 @@
     owner: root
     group: root
     mode: 0700
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.7
     - low
@@ -258,26 +328,34 @@
   args:
     executable: /bin/bash
   register: home_directories_exist
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.7
     - low
     - level1
     - low
 
-- name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
-  debug:
-    var: home_directories_exist.stdout_lines
-  when: home_directories_exist.stdout != ""
-  tags:
-    - rule_6.2.7
-    - low
-    - level1
-    - low
+# - name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
+#   debug:
+#     var: home_directories_exist.stdout_lines
+#   when:
+#     - centos7cis_level1 is defined and centos7cis_level1
+#     - home_directories_exist is defined
+#     - home_directories_exist.stdout != ""
+#   tags:
+#     - rule_6.2.7
+#     - low
+#     - level1
+#     - low
 
 - name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
   debug:
     msg: "PASS | 6.2.7 | All users' home directories exist."
-  when: home_directories_exist.stdout == ""
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - home_directories_exist is defined
+    - home_directories_exist.stdout == ""
   tags:
     - rule_6.2.7
     - low
@@ -290,6 +368,9 @@
     owner: root
     group: root
     state: absent
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.7
     - low
@@ -303,7 +384,10 @@
     owner: root
     group: root
     mode: 0700
-  when: centos7cis_modify_user_homes
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - rhel7cis_modify_user_homes is defined and rhel7cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
@@ -315,29 +399,35 @@
   args:
     executable: /bin/bash
   register: home_directories_permissions
-  when: centos7cis_modify_user_homes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - rhel7cis_modify_user_homes is defined and rhel7cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
     - patch
     - low
 
-- name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
-  debug:
-    var: home_directories_permissions.stdout_lines
-  when: centos7cis_modify_user_homes
-  tags:
-    - rule_6.2.8
-    - level1
-    - patch
-    - low
+# - name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
+#   debug:
+#     var: home_directories_permissions.stdout_lines
+#   when:
+#     - centos7cis_level1 is defined and centos7cis_level1
+#     - rhel7cis_modify_user_homes is defined and home_directories_permissions is defined
+#     - rhel7cis_modify_user_homes
+#   tags:
+#     - rule_6.2.8
+#     - level1
+#     - patch
+#     - low
 
 - name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
   debug:
     msg: "PASS | 6.2.8 | Users' home directories permissions are 750 or more restrictive."
   when:
-    - home_directories_permissions.stdout == ""
-    - centos7cis_modify_user_homes
+    - centos7cis_level1 is defined and centos7cis_level1
+    - rhel7cis_modify_user_homes is defined and rhel7cis_modify_user_homes
+    - home_directories_permissions is defined and home_directories_permissions.stdout == ""
   tags:
     - rule_6.2.8
     - level1
@@ -350,7 +440,10 @@
     owner: root
     group: root
     state: absent
-  when: centos7cis_modify_user_homes
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - rhel7cis_modify_user_homes is defined and rhel7cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
@@ -364,6 +457,9 @@
     owner: root
     group: root
     mode: 0700
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.9
     - level1
@@ -375,24 +471,31 @@
   args:
     executable: /bin/bash
   register: home_directories_own
+  no_log: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.9
     - level1
     - patch
     - low
 
-- name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
-  debug:
-    var: home_directories_own.stdout_lines
-  tags:
-    - rule_6.2.9
-    - level1
-    - patch
+# - name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
+#   debug:
+#     var: home_directories_own.stdout_lines
+#   when:
+#     - centos7cis_level1 is defined and centos7cis_level1
+#   tags:
+#     - rule_6.2.9
+#     - level1
+#     - patch
 
 - name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
   debug:
     msg: "PASS | 6.2.9 | Users' own their home directories."
-  when: home_directories_own.stdout == ""
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - home_directories_own is defined and home_directories_own.stdout == ""
   tags:
     - rule_6.2.9
     - level1
@@ -405,11 +508,15 @@
     owner: root
     group: root
     state: absent
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.9
     - level1
     - patch
     - low
+
 - name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
   copy:
     src: scripts/6.2.10.sh
@@ -417,6 +524,9 @@
     owner: root
     group: root
     mode: 0700
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.10
     - patch
@@ -428,25 +538,32 @@
   args:
     executable: /bin/bash
   register: user_dot_files
+  no_log: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.10
     - patch
     - level1
     - low
 
-- name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
-  debug:
-    var: user_dot_files.stdout_lines
-  tags:
-    - rule_6.2.10
-    - level1
-    - patch
-    - low
+# - name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
+#   debug:
+#     var: user_dot_files.stdout_lines
+#   when:
+#     - centos7cis_level1 is defined and centos7cis_level1
+#   tags:
+#     - rule_6.2.10
+#     - level1
+#     - patch
+#     - low
 
 - name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
   debug:
     msg: "PASS | 6.2.10 | Users' dot files are not group or world writable."
-  when: user_dot_files.stdout == ""
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - user_dot_files is defined and user_dot_files.stdout == ""
   tags:
     - rule_6.2.10
     - level1
@@ -459,6 +576,9 @@
     owner: root
     group: root
     state: absent
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.10
     - patch
@@ -467,9 +587,13 @@
 
 - name: "SCORED | 6.2.11 | PATCH | Ensure no users have .forward files"
   file:
-      state: absent
-      dest: "~{{ item }}/.forward"
+    state: absent
+    dest: "~{{ item }}/.forward"
   with_items: "{{ users.stdout_lines }}"
+  no_log: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - rhel7cis_modify_dot_forward_files is defined and rhel7cis_modify_dot_forward_files
   tags:
     - rule_6.2.11
     - patch
@@ -478,9 +602,13 @@
 
 - name: "SCORED | 6.2.12 | PATCH | Ensure no users have .netrc files"
   file:
-      state: absent
-      dest: "~{{ item }}/.netrc"
+    state: absent
+    dest: "~{{ item }}/.netrc"
   with_items: "{{ users.stdout_lines }}"
+  no_log: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - rhel7cis_modify_dot_netrc_files is defined and rhel7cis_modify_dot_netrc_files
   tags:
     - rule_6.2.12
     - patch
@@ -494,6 +622,10 @@
     owner: root
     group: root
     mode: 0700
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - rhel7cis_modify_dot_netrc_files_group is defined and rhel7cis_modify_dot_netrc_files_group
   tags:
     - rule_6.2.13
     - patch
@@ -505,25 +637,34 @@
   args:
     executable: /bin/bash
   register: dot_netrc_files
+  no_log: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - rhel7cis_modify_dot_netrc_files_group is defined and rhel7cis_modify_dot_netrc_files_group
   tags:
     - rule_6.2.13
     - patch
     - level1
     - low
 
-- name: "SCORED | 6.2.13 | PATCH | Ensure users' .netrc files are not group or world accessible"
-  debug:
-    var: dot_netrc_files.stdout_lines
-  tags:
-    - rule_6.2.13
-    - patch
-    - level1
-    - low
+# - name: "SCORED | 6.2.13 | PATCH | Ensure users' .netrc files are not group or world accessible"
+#   debug:
+#     var: dot_netrc_files.stdout_lines
+#   when:
+#     - centos7cis_level1 is defined and centos7cis_level1
+#   tags:
+#     - rule_6.2.13
+#     - patch
+#     - level1
+#     - low
 
 - name: "SCORED | 6.2.13 | PATCH | Ensure users' .netrc files are not group or world accessible"
   debug:
     msg: "PASS | 6.2.13 | Users' .netrc files are not group or world accessible."
-  when: dot_netrc_files.stdout == ""
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - rhel7cis_modify_dot_netrc_files_group is defined and rhel7cis_modify_dot_netrc_files_group
+    - dot_netrc_files is defined and dot_netrc_files.stdout == ""
   tags:
     - rule_6.2.13
     - patch
@@ -536,6 +677,10 @@
     owner: root
     group: root
     state: absent
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - rhel7cis_modify_dot_netrc_files_group is defined and rhel7cis_modify_dot_netrc_files_group
   tags:
     - rule_6.2.13
     - patch
@@ -547,6 +692,10 @@
     state: absent
     dest: "~{{ item }}/.rhosts"
   with_items: "{{ users.stdout_lines }}"
+  no_log: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - rhel7cis_modify_dot_rhosts_files is defined and rhel7cis_modify_dot_rhosts_files
   tags:
     - rule_6.2.14
     - patch
@@ -560,6 +709,9 @@
     owner: root
     group: root
     mode: 0700
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.15
     - patch
@@ -571,25 +723,32 @@
   args:
     executable: /bin/bash
   register: check_groups_in_passwd
+  no_log: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.15
     - patch
     - level1
     - low
 
-- name: "SCORED | 6.2.15 | PATCH | Ensure all groups in /etc/passwd exist in /etc/group"
-  debug:
-    var: check_groups_in_passwd.stdout_lines
-  tags:
-    - rule_6.2.15
-    - patch
-    - level1
-    - low
+# - name: "SCORED | 6.2.15 | PATCH | Ensure all groups in /etc/passwd exist in /etc/group"
+#   debug:
+#     var: check_groups_in_passwd.stdout_lines
+#   when:
+#     - centos7cis_level1 is defined and centos7cis_level1
+#   tags:
+#     - rule_6.2.15
+#     - patch
+#     - level1
+#     - low
 
 - name: "SCORED | 6.2.15 | PATCH | Ensure all groups in /etc/passwd exist in /etc/group"
   debug:
     msg: "PASS | 6.2.15 | All groups exist in /etc/group."
-  when: check_groups_in_passwd.stdout == ""
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - check_groups_in_passwd is defined and check_groups_in_passwd.stdout == ""
   tags:
     - rule_6.2.15
     - patch
@@ -602,6 +761,9 @@
     owner: root
     group: root
     state: absent
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.15
     - patch
@@ -615,6 +777,9 @@
     owner: root
     group: root
     mode: 0700
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.16
     - patch
@@ -626,25 +791,32 @@
   args:
     executable: /bin/bash
   register: duplicate_uids
+  no_log: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.16
     - patch
     - level1
     - low
 
-- name: "SCORED | 6.2.16 | PATCH | Ensure no duplicate UIDs exist"
-  debug:
-    var: duplicate_uids.stdout_lines
-  tags:
-    - rule_6.2.16
-    - patch
-    - level1
-    - low
+# - name: "SCORED | 6.2.16 | PATCH | Ensure no duplicate UIDs exist"
+#   debug:
+#     var: duplicate_uids.stdout_lines
+#   when:
+#     - centos7cis_level1 is defined and centos7cis_level1
+#   tags:
+#     - rule_6.2.16
+#     - patch
+#     - level1
+#     - low
 
 - name: "SCORED | 6.2.16 | PATCH | Ensure no duplicate UIDs exist"
   debug:
     msg: "PASS | 6.2.16 | No duplicate UIDs exist."
-  when: duplicate_uids.stdout == ""
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - duplicate_uids is defined and duplicate_uids.stdout == ""
   tags:
     - rule_6.2.16
     - patch
@@ -657,6 +829,9 @@
     owner: root
     group: root
     state: absent
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.16
     - patch
@@ -670,6 +845,9 @@
     owner: root
     group: root
     mode: 0700
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.17
     - patch
@@ -680,6 +858,9 @@
   shell: /opt/6.2.17.sh
   args:
     executable: /bin/bash
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+  no_log: yes
   register: duplicate_gids
   tags:
     - rule_6.2.17
@@ -687,19 +868,23 @@
     - level1
     - low
 
-- name: "SCORED | 6.2.17 | PATCH | Ensure no duplicate GIDs exist"
-  debug:
-    var: duplicate_gids.stdout_lines
-  tags:
-    - rule_6.2.17
-    - patch
-    - level1
-    - low
+# - name: "SCORED | 6.2.17 | PATCH | Ensure no duplicate GIDs exist"
+#   debug:
+#     var: duplicate_gids.stdout_lines
+#   when:
+#     - centos7cis_level1 is defined and centos7cis_level1
+#   tags:
+#     - rule_6.2.17
+#     - patch
+#     - level1
+#     - low
 
 - name: "SCORED | 6.2.17 | PATCH | Ensure no duplicate GIDs exist"
   debug:
     msg: "PASS | 6.2.17 | No duplicate GIDs exist."
-  when: duplicate_gids.stdout == ""
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - duplicate_gids is defined and duplicate_gids.stdout == ""
   tags:
     - rule_6.2.17
     - patch
@@ -712,6 +897,9 @@
     owner: root
     group: root
     state: absent
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.17
     - patch
@@ -725,6 +913,9 @@
     owner: root
     group: root
     mode: 0700
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.18
     - patch
@@ -736,25 +927,32 @@
   args:
     executable: /bin/bash
   register: duplicate_users
+  no_log: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.18
     - patch
     - level1
     - low
 
-- name: "SCORED | 6.2.18 | PATCH | Ensure no duplicate user names exist"
-  debug:
-    var: duplicate_users.stdout_lines
-  tags:
-    - rule_6.2.18
-    - patch
-    - level1
-    - low
+# - name: "SCORED | 6.2.18 | PATCH | Ensure no duplicate user names exist"
+#   debug:
+#     var: duplicate_users.stdout_lines
+#   when:
+#     - centos7cis_level1 is defined and centos7cis_level1
+#   tags:
+#     - rule_6.2.18
+#     - patch
+#     - level1
+#     - low
 
 - name: "SCORED | 6.2.18 | PATCH | Ensure no duplicate user names exist"
   debug:
     msg: "PASS | 6.2.18 | No duplicate user names exist"
-  when: duplicate_users.stdout == ""
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - duplicate_users is defined and duplicate_users.stdout == ""
   tags:
     - rule_6.2.18
     - patch
@@ -767,6 +965,9 @@
     owner: root
     group: root
     state: absent
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.18
     - patch
@@ -780,6 +981,9 @@
     owner: root
     group: root
     mode: 0700
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.19
     - patch
@@ -791,25 +995,32 @@
   args:
     executable: /bin/bash
   register: duplicate_groups
+  no_log: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.19
     - patch
     - level1
     - low
 
-- name: "SCORED | 6.2.19 | PATCH | Ensure no duplicate group names exist"
-  debug:
-    var: duplicate_groups.stdout_lines
-  tags:
-    - rule_6.2.19
-    - patch
-    - level1
-    - low
+# - name: "SCORED | 6.2.19 | PATCH | Ensure no duplicate group names exist"
+#   debug:
+#     var: duplicate_groups.stdout_lines
+#   when:
+#     - centos7cis_level1 is defined and centos7cis_level1
+#   tags:
+#     - rule_6.2.19
+#     - patch
+#     - level1
+#     - low
 
 - name: "SCORED | 6.2.19 | PATCH | Ensure no duplicate group names exist"
   debug:
     msg: "PASS | 6.2.19 | No duplicate group names exist"
-  when: duplicate_groups.stdout == ""
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - duplicate_groups is defined and duplicate_groups.stdout == ""
   tags:
     - rule_6.2.19
     - patch
@@ -822,6 +1033,9 @@
     owner: root
     group: root
     state: absent
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - rule_6.2.19
     - patch

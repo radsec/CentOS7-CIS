@@ -1,551 +1,416 @@
 - name: "SCORED | 3.1.1 | PATCH | Ensure IP forwarding is disabled"
   sysctl:
-      name: net.ipv4.ip_forward
-      value: 0
-      state: present
-      reload: yes
-      ignoreerrors: yes
-  when: not centos7cis_is_router
+    name: net.ipv4.ip_forward
+    value: 0
+    state: present
+    reload: yes
+    ignoreerrors: yes
+    sysctl_set: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_is_router is defined and not centos7cis_is_router
   notify:
-      - sysctl flush ipv4 route table
+    - sysctl flush ipv4 route table
   tags:
-      - level1
-      - medium
-      - sysctl
-      - patch
-      - rule_3.1.1
+    - level1
+    - sysctl
+    - scored
+    - patch
+    - rule_3.1.1
 
 - name: "SCORED | 3.1.2 | PATCH | Ensure packet redirect sending is disabled"
   sysctl:
-      name: '{{ item.name }}'
-      value: '{{ item.value }}'
-      sysctl_set: yes
-      state: present
-      reload: yes
-      ignoreerrors: yes
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
   with_items:
-      - { name: net.ipv4.conf.all.send_redirects, value: 0 }
-      - { name: net.ipv4.conf.default.send_redirects, value: 0 }
-  when: not centos7cis_is_router
+    - { name: net.ipv4.conf.all.send_redirects, value: 0 }
+    - { name: net.ipv4.conf.default.send_redirects, value: 0 }
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_is_router is defined and not centos7cis_is_router
   notify:
-      - sysctl flush ipv4 route table
+    - sysctl flush ipv4 route table
   tags:
-      - level1
-      - medium
-      - sysctl
-      - patch
-      - rule_3.1.2
-
+    - level1
+    - sysctl
+    - scored
+    - patch
+    - rule_3.1.2
 - name: "SCORED | 3.2.1 | PATCH | Ensure source routed packets are not accepted"
   sysctl:
-      name: '{{ item.name }}'
-      value: '{{ item.value }}'
-      sysctl_set: yes
-      state: present
-      reload: yes
-      ignoreerrors: yes
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
   with_items:
-      - { name: net.ipv4.conf.all.accept_source_route, value: 0 }
-      - { name: net.ipv4.conf.default.accept_source_route, value: 0 }
+    - { name: net.ipv4.conf.all.accept_source_route, value: 0 }
+    - { name: net.ipv4.conf.default.accept_source_route, value: 0 }
   notify:
-      - sysctl flush ipv4 route table
+    - sysctl flush ipv4 route table
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - medium
-      - sysctl
-      - patch
-      - rule_3.2.1
+    - level1
+    - sysctl
+    - patch
+    - rule_3.2.1
 
 - name: "SCORED | 3.2.2 | PATCH | Ensure ICMP redirects are not accepted"
   sysctl:
-      name: '{{ item.name }}'
-      value: '{{ item.value }}'
-      sysctl_set: yes
-      state: present
-      reload: yes
-      ignoreerrors: yes
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
   with_items:
-      - { name: net.ipv4.conf.all.accept_redirects, value: 0 }
-      - { name: net.ipv4.conf.default.accept_redirects, value: 0 }
+    - { name: net.ipv4.conf.all.accept_redirects, value: 0 }
+    - { name: net.ipv4.conf.default.accept_redirects, value: 0 }
   notify:
-      - sysctl flush ipv4 route table
+    - sysctl flush ipv4 route table
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - sysctl
-      - patch
-      - rule_3.2.2
+    - level1
+    - sysctl
+    - scored
+    - patch
+    - rule_3.2.2
 
 - name: "SCORED | 3.2.3 | PATCH | Ensure secure ICMP redirects are not accepted"
   sysctl:
-      name: '{{ item.name }}'
-      value: '{{ item.value }}'
-      sysctl_set: yes
-      state: present
-      reload: yes
-      ignoreerrors: yes
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
   with_items:
-      - { name: net.ipv4.conf.all.secure_redirects, value: 0 }
-      - { name: net.ipv4.conf.default.secure_redirects, value: 0 }
+    - { name: net.ipv4.conf.all.secure_redirects, value: 0 }
+    - { name: net.ipv4.conf.default.secure_redirects, value: 0 }
   notify:
-      - sysctl flush ipv4 route table
+    - sysctl flush ipv4 route table
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - medium
-      - sysctl
-      - patch
-      - rule_3.2.3
+    - level1
+    - sysctl
+    - scored
+    - patch
+    - rule_3.2.3
 
 - name: "SCORED | 3.2.4 | PATCH | Ensure suspicious packets are logged"
   sysctl:
-      name: '{{ item.name }}'
-      value: '{{ item.value }}'
-      sysctl_set: yes
-      state: present
-      reload: yes
-      ignoreerrors: yes
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
   with_items:
-      - { name: net.ipv4.conf.all.log_martians, value: 1 }
-      - { name: net.ipv4.conf.default.log_martians, value: 1 }
+    - { name: net.ipv4.conf.all.log_martians, value: 1 }
+    - { name: net.ipv4.conf.default.log_martians, value: 1 }
   notify:
-      - sysctl flush ipv4 route table
+    - sysctl flush ipv4 route table
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - sysctl
-      - patch
-      - rule_3.2.4
+    - level1
+    - sysctl
+    - scored
+    - patch
+    - rule_3.2.4
 
 - name: "SCORED | 3.2.5 | PATCH | Ensure broadcast ICMP requests are ignored"
   sysctl:
-      name: net.ipv4.icmp_echo_ignore_broadcasts
-      value: 1
-      state: present
-      reload: yes
-      ignoreerrors: yes
+    name: net.ipv4.icmp_echo_ignore_broadcasts
+    value: 1
+    state: present
+    reload: yes
+    ignoreerrors: yes
+    sysctl_set: yes
   notify:
-      - sysctl flush ipv4 route table
+    - sysctl flush ipv4 route table
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - medium
-      - sysctl
-      - patch
-      - rule_3.2.5
+    - level1
+    - sysctl
+    - patch
+    - scored
+    - rule_3.2.5
 
 - name: "SCORED | 3.2.6 | PATCH | Ensure bogus ICMP responses are ignored"
   sysctl:
-      name: net.ipv4.icmp_ignore_bogus_error_responses
-      value: 1
-      state: present
-      reload: yes
-      ignoreerrors: yes
+    name: net.ipv4.icmp_ignore_bogus_error_responses
+    value: 1
+    state: present
+    reload: yes
+    ignoreerrors: yes
+    sysctl_set: yes
   notify:
-      - sysctl flush ipv4 route table
+    - sysctl flush ipv4 route table
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - medium
-      - sysctl
-      - patch
-      - rule_3.2.6
+    - level1
+    - sysctl
+    - patch
+    - scored
+    - rule_3.2.6
 
 - name: "SCORED | 3.2.7 | PATCH | Ensure Reverse Path Filtering is enabled"
   sysctl:
-      name: '{{ item.name }}'
-      value: '{{ item.value }}'
-      sysctl_set: yes
-      state: present
-      reload: yes
-      ignoreerrors: yes
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
   with_items:
-      - { name: net.ipv4.conf.all.rp_filter, value: 1 }
-      - { name: net.ipv4.conf.default.rp_filter, value: 1 }
+    - { name: net.ipv4.conf.all.rp_filter, value: 1 }
+    - { name: net.ipv4.conf.default.rp_filter, value: 1 }
   notify:
-      - sysctl flush ipv4 route table
+    - sysctl flush ipv4 route table
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - medium
-      - sysctl
-      - patch
-      - rule_3.2.7
+    - level1
+    - sysctl
+    - patch
+    - scored
+    - rule_3.2.7
 
 - name: "SCORED | 3.2.8 | PATCH | Ensure TCP SYN Cookies is enabled"
   sysctl:
-      name: net.ipv4.tcp_syncookies
-      value: 1
-      state: present
-      reload: yes
-      ignoreerrors: yes
+    name: net.ipv4.tcp_syncookies
+    value: 1
+    state: present
+    reload: yes
+    ignoreerrors: yes
+    sysctl_set: yes
   notify:
-      - sysctl flush ipv4 route table
+    - sysctl flush ipv4 route table
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - sysctl
-      - patch
-      - rule_3.2.8
+    - level1
+    - sysctl
+    - patch
+    - scored
+    - rule_3.2.8
 
 - name: "SCORED | 3.3.1 | PATCH | Ensure IPv6 router advertisements are not accepted"
   sysctl:
-      name: '{{ item.name }}'
-      value: '{{ item.value }}'
-      sysctl_set: yes
-      state: present
-      reload: yes
-      ignoreerrors: yes
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
   with_items:
-      - { name: net.ipv6.conf.all.accept_ra, value: 0 }
-      - { name: net.ipv6.conf.default.accept_ra, value: 0 }
-  when: centos7cis_ipv6_required == true
+    - { name: net.ipv6.conf.all.accept_ra, value: 0 }
+    - { name: net.ipv6.conf.default.accept_ra, value: 0 }
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_ipv6_required is defined
+    - centos7cis_ipv6_required
   notify:
-      - sysctl flush ipv6 route table
+    - sysctl flush ipv6 route table
   tags:
-      - level1
-      - medium
-      - sysctl
-      - patch
-      - rule_3.3.1
+    - level1
+    - sysctl
+    - patch
+    - scored
+    - rule_3.3.1
 
 - name: "SCORED | 3.3.2 | PATCH | Ensure IPv6 redirects are not accepted"
   sysctl:
-      name: '{{ item.name }}'
-      value: '{{ item.value }}'
-      sysctl_set: yes
-      state: present
-      reload: yes
-      ignoreerrors: yes
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
   with_items:
-      - { name: net.ipv6.conf.all.accept_redirects, value: 0 }
-      - { name: net.ipv6.conf.default.accept_redirects, value: 0 }
-  when: centos7cis_ipv6_required == true
+    - { name: net.ipv6.conf.all.accept_redirects, value: 0 }
+    - { name: net.ipv6.conf.default.accept_redirects, value: 0 }
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_ipv6_required is defined
+    - centos7cis_ipv6_required
   notify:
-      - sysctl flush ipv6 route table
+    - sysctl flush ipv6 route table
   tags:
-      - level1
-      - medium
-      - sysctl
-      - patch
-      - rule_3.3.2
+    - level1
+    - sysctl
+    - patch
+    - scored
+    - rule_3.3.2
 
 - name: "NOTSCORED | 3.3.3 | PATCH | Ensure IPv6 is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?options ipv6 disable="
-      line: "options ipv6 disable=1"
-      create: yes
-  when: centos7cis_ipv6_required == false
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: "^(#)?options ipv6 disable="
+    line: "options ipv6 disable=1"
+    create: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_ipv6_required is defined
+    - not centos7cis_ipv6_required
   tags:
-      - level1
-      - medium
-      - patch
-      - rule_3.3.3
+    - level1
+    - patch
+    - rule_3.3.3
 
 - name: "SCORED | 3.4.1 | PATCH | Ensure TCP Wrappers is installed"
   yum:
     name: tcp_wrappers
     state: present
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - patch
-      - rule_3.4.1
+    - level1
+    - patch
+    - rule_3.4.1
 
 - name: "SCORED | 3.4.2 | PATCH | Ensure /etc/hosts.allow is configured"
   template:
-      src: hosts.allow.j2
-      dest: /etc/hosts.allow
-      owner: root
-      group: root
-      mode: 0644
+    src: hosts.allow.j2
+    dest: /etc/hosts.allow
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - high
-      - patch
-      - rule_3.4.2
+    - level1
+    - patch
+    - rule_3.4.2
 
 - name: "SCORED | 3.4.3 | PATCH | Ensure /etc/hosts.deny is configured"
   lineinfile:
-      dest: /etc/hosts.deny
-      regexp: "^(#)?ALL"
-      line: "ALL: ALL"
-  when: centos7cis_enable_hosts_deny
+    dest: /etc/hosts.deny
+    regexp: "^(#)?ALL"
+    line: "ALL: ALL"
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_enable_host_deny is defined
+    - centos7cis_enable_hosts_deny
   tags:
-      - level1
-      - high
-      - patch
-      - rule_3.4.3
+    - level1
+    - patch
+    - rule_3.4.3
 
 - name: "SCORED | 3.4.4 | PATCH | Ensure permissions on /etc/hosts.allow are configured"
   file:
-      dest: /etc/hosts.allow
-      owner: root
-      group: root
-      mode: 0644
+    dest: /etc/hosts.allow
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - high
-      - patch
-      - rule_3.4.4
+    - level1
+    - patch
+    - rule_3.4.4
 
 - name: "SCORED | 3.4.5 | PATCH | Ensure permissions on /etc/hosts.deny are 644"
   file:
-      dest: /etc/hosts.deny
-      owner: root
-      group: root
-      mode: 0644
+    dest: /etc/hosts.deny
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - high
-      - patch
-      - rule_3.4.5
+    - level1
+    - patch
+    - rule_3.4.5
 
 - name: "NOTSCORED | 3.5.1 | PATCH | Ensure DCCP is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install dccp(\\s|$)"
-      line: "install dccp /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: "^(#)?install dccp(\\s|$)"
+    line: "install dccp /bin/true"
+    create: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - patch
-      - rule_3.5.1
+    - level1
+    - patch
+    - rule_3.5.1
 
 - name: "NOTSCORED | 3.5.2 | PATCH | Ensure SCTP is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install sctp(\\s|$)"
-      line: "install sctp /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: "^(#)?install sctp(\\s|$)"
+    line: "install sctp /bin/true"
+    create: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - patch
-      - rule_3.5.2
+    - level1
+    - patch
+    - rule_3.5.2
 
 - name: "NOTSCORED | 3.5.3 | PATCH | Ensure RDS is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install rds(\\s|$)"
-      line: "install rds /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: "^(#)?install rds(\\s|$)"
+    line: "install rds /bin/true"
+    create: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - patch
-      - rule_3.5.3
+    - level1
+    - patch
+    - rule_3.5.3
 
 - name: "NOTSCORED | 3.5.4 | PATCH | Ensure TIPC is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install tipc(\\s|$)"
-      line: "install tipc /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: "^(#)?install tipc(\\s|$)"
+    line: "install tipc /bin/true"
+    create: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - patch
-      - rule_3.5.4
+    - level1
+    - patch
+    - rule_3.5.4
 
 - name: "SCORED | 3.6 | PATCH | Ensure firewalld is installed and started | CUSTOM"
   yum:
-      name: firewalld
-      state: present
-  when: centos7cis_firewall == "firewalld"
+    name: firewalld
+    state: present
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_firewall is defined and centos7cis_firewall == "firewalld"
   tags:
-      - level1
-      - patch
-      - rule_3.6
+    - level1
+    - patch
+    - rule_3.6
 
 - name: "SCORED | 3.6 | PATCH | Ensure firewalld is installed and started | CUSTOM"
   service:
-      name: firewalld
-      state: stopped
-      enabled: no
-  when: centos7cis_firewall == "firewalld"
-  tags:
-      - level1
-      - patch
-      - rule_3.6
-
-- name: "SCORED | 3.6.1 | PATCH | Ensure iptables is installed"
-  yum:
-      name: iptables
-      state: present
-  when: centos7cis_firewall == "iptables"
-  tags:
-      - level1
-      - patch
-      - rule_3.6.1
-
-- name: "SCORED | 3.6.2 | PATCH | Ensure default deny firewall policy | INPUT Policy"
-  iptables:
-    ip_version: ipv4
-    chain: INPUT
-    policy: DROP
-    action: append
-    state: present
+    name: firewalld
+    state: started
+    enabled: no
   when:
-    - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_default_deny_rule
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_firewall is defined and centos7cis_firewall == "firewalld"
   tags:
     - level1
     - patch
-    - rule_3.6.2
-    - medium
+    - rule_3.6
 
-- name: "SCORED | 3.6.2 | PATCH | Ensure default deny firewall policy | OUTPUT Policy"
-  iptables:
-    ip_version: ipv4
-    chain: OUTPUT
-    policy: DROP
-    action: append
-    state: present
-  when:
-    - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_default_deny_rule
-  tags:
-    - level1
-    - patch
-    - rule_3.6.2
-    - medium
-
-- name: "SCORED | 3.6.2 | PATCH | Ensure default deny firewall policy | FORWARD Policy"
-  iptables:
-    ip_version: ipv4
-    chain: FORWARD
-    policy: DROP
-    action: append
-    state: present
-  when:
-    - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_default_deny_rule
-  tags:
-    - level1
-    - patch
-    - rule_3.6.2
-    - medium
-
-- name: "SCORED | 3.6.3 | PATCH | Ensure loopback traffic is configured | INPUT rule"
-  iptables:
-    ip_version: ipv4
-    chain: INPUT
-    in_interface: lo
-    jump: ACCEPT
-    action: append
-    state: present
-  when:
-    - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_loopback_rule
-  tags:
-    - level1
-    - patch
-    - rule_3.6.3
-    - low
-
-- name: "SCORED | 3.6.3 | PATCH | Ensure loopback traffic is configured | OUTPUT rule"
-  iptables:
-    ip_version: ipv4
-    chain: OUTPUT
-    out_interface: lo
-    jump: ACCEPT
-    action: append
-    state: present
-  when:
-    - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_loopback_rule
-  tags:
-    - level1
-    - patch
-    - rule_3.6.3
-    - low
-
-- name: "SCORED | 3.6.3 | PATCH | Ensure loopback traffic is configured | 127.0.0.0/8 rule"
-  iptables:
-    ip_version: ipv4
-    chain: INPUT
-    source: 127.0.0.0/8
-    jump: DROP
-    action: append
-    state: present
-  when:
-    - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_loopback_rule
-  tags:
-    - level1
-    - patch
-    - rule_3.6.3
-    - low
-
-- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
-  iptables:
-    ip_version: ipv4
-    chain: OUTPUT
-    protocol: tcp
-    match: state
-    ctstate: NEW,ESTABLISHED
-    jump: ACCEPT
-  when:
-    - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_outbound_rule
-  tags:
-    - level1
-    - patch
-    - rule_3.6.4
-    - low
-
-- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
-  iptables:
-    ip_version: ipv4
-    chain: OUTPUT
-    protocol: udp
-    match: state
-    ctstate: NEW,ESTABLISHED
-    jump: ACCEPT
-  when:
-    - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_outbound_rule
-  tags:
-    - level1
-    - patch
-    - rule_3.6.4
-    - low
-
-- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
-  iptables:
-    ip_version: ipv4
-    chain: OUTPUT
-    protocol: icmp
-    match: state
-    ctstate: NEW,ESTABLISHED
-    jump: ACCEPT
-  when:
-    - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_outbound_rule
-  tags:
-    - level1
-    - patch
-    - rule_3.6.4
-    - low
-
-- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
-  iptables:
-    ip_version: ipv4
-    chain: INPUT
-    protocol: tcp
-    match: state
-    ctstate: ESTABLISHED
-    jump: ACCEPT
-  when:
-    - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_outbound_rule
-  tags:
-    - level1
-    - patch
-    - rule_3.6.4
-    - low
-
-- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
-  iptables:
     ip_version: ipv4
     chain: INPUT
     protocol: udp
@@ -553,8 +418,9 @@
     ctstate: ESTABLISHED
     jump: ACCEPT
   when:
-    - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_outbound_rule
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_firewall is defined and centos7cis_firewall == "iptables"
+    - centos7cis_firewall_outbound_rule is defined and centos7cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -570,8 +436,9 @@
     ctstate: ESTABLISHED
     jump: ACCEPT
   when:
-    - centos7cis_firewall == "iptables"
-    - centos7cis_firewall_outbound_rule
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_firewall is defined and centos7cis_firewall == "iptables"
+    - centos7cis_firewall_outbound_rule is defined and centos7cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -581,17 +448,23 @@
 - name: "SCORED | 3.6.5 | PATCH | Ensure firewall rules exist for all open ports"
   debug:
     msg: "Ensure firewall rules exist for all open ports"
-  when: centos7cis_firewall == "iptables"
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_firewall is defined and centos7cis_firewall == "iptables"
   tags:
     - level1
     - patch
+    - scored
     - rule_3.6.5
     - low
 
 - name: "NOTSCORED | 3.7 | PATCH | Ensure wireless interfaces are disabled"
   command: /bin/true
+  changed_when: no
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_3.7
+    - level1
+    - level2
+    - patch
+    - rule_3.7

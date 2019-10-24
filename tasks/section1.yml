@@ -1,174 +1,185 @@
 - name: "SCORED | 1.1.1.1 | PATCH | Ensure mounting of cramfs filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install cramfs(\\s|$)"
-      line: "install cramfs /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: "^(#)?install cramfs(\\s|$)"
+    line: "install cramfs /bin/true"
+    create: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_1.1.1.1
-      - cramfs
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.1
+    - cramfs
 
 - name: "SCORED | 1.1.1.2 | PATCH | Ensure mounting of freevxfs filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install freevxfs(\\s|$)"
-      line: "install freevxfs /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: "^(#)?install freevxfs(\\s|$)"
+    line: "install freevxfs /bin/true"
+    create: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_1.1.1.2
-      - freevxfs
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.2
+    - freevxfs
 
 - name: "SCORED | 1.1.1.3 | PATCH | Ensure mounting of jffs2 filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install jffs2(\\s|$)"
-      line: "install jffs2 /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: "^(#)?install jffs2(\\s|$)"
+    line: "install jffs2 /bin/true"
+    create: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_1.1.1.3
-      - jffs2
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.3
+    - jffs2
 
 - name: "SCORED | 1.1.1.4 | PATCH | Ensure mounting of hfs filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install hfs(\\s|$)"
-      line: "install hfs /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: "^(#)?install hfs(\\s|$)"
+    line: "install hfs /bin/true"
+    create: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_1.1.1.4
-      - hfs
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.4
+    - hfs
 
 - name: "SCORED | 1.1.1.5 | PATCH | Ensure mounting of hfsplus filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install hfsplus(\\s|$)"
-      line: "install hfsplus /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: "^(#)?install hfsplus(\\s|$)"
+    line: "install hfsplus /bin/true"
+    create: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_1.1.1.5
-      - hfsplus
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.5
+    - hfsplus
 
 - name: "SCORED | 1.1.1.6 | PATCH | Ensure mounting of squashfs filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install squashfs(\\s|$)"
-      line: "install squashfs /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: "^(#)?install squashfs(\\s|$)"
+    line: "install squashfs /bin/true"
+    create: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_1.1.1.6
-      - squashfs
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.6
+    - squashfs
 
 - name: "SCORED | 1.1.1.7 | PATCH | Ensure mounting of udf filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install udf(\\s|$)"
-      line: "install udf /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: "^(#)?install udf(\\s|$)"
+    line: "install udf /bin/true"
+    create: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_1.1.1.7
-      - udf
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.7
+    - udf
 
 - name: "SCORED | 1.1.1.8 | PATCH | Ensure mounting of FAT filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install vfat(\\s|$)"
-      line: "install vfat /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: "^(#)?install vfat(\\s|$)"
+    line: "install vfat /bin/true"
+    create: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_1.1.1.8
-      - vfat
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.8
+    - vfat
 
 - name: "SCORED | 1.1.2 | PATCH | Ensure separate partition exists for /tmp | enable and start/restart tmp.mount"
   systemd:
-      name: tmp.mount
-      daemon_reload: yes
-      enabled: yes
-      masked: no
-      state: started
+    name: tmp.mount
+    daemon_reload: yes
+    enabled: yes
+    masked: no
+    state: started
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - medium
-      - scored
-      - patch
-      - rule_1.1.2
+    - level2
+    - scored
+    - patch
+    - rule_1.1.2
 
 - name: "SCORED | 1.1.3 | PATCH | Ensure nodev option set on /tmp partition\n
          SCORED | 1.1.4 | PATCH | Ensure nosuid option set on /tmp partition\n
          SCORED | 1.1.5 | PATCH | Ensure noexec option set on /tmp partition\n
          | drop custom tmp.mount"
   copy:
-      src: etc/systemd/system/tmp.mount
-      dest: /etc/systemd/system/tmp.mount
-      owner: root
-      group: root
-      mode: 0644
+    src: etc/systemd/system/tmp.mount
+    dest: /etc/systemd/system/tmp.mount
+    owner: root
+    group: root
+    mode: 0644
   notify: systemd restart tmp.mount
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - high
-      - scored
-      - patch
-      - rule_1.1.3
-      - rule_1.1.4
-      - rule_1.1.5
+    - level1
+    - scored
+    - patch
+    - rule_1.1.3
+    - rule_1.1.4
+    - rule_1.1.5
 
 - name: "SCORED | 1.1.6 | PATCH | Ensure separate partition exists for /var"
   shell: mount | grep "on /var "
   register: var_mounted
   changed_when: no
   failed_when: no
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - high
-      - scored
-      - patch
-      - rule_1.1.6
+    - level2
+    - scored
+    - patch
+    - rule_1.1.6
 
 - name: "SCORED | 1.1.7 | PATCH | Ensure separate partition exists for /var/tmp"
   shell: mount | grep "on /var/tmp "
   register: var_tmp_mounted
   changed_when: no
   failed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1 or centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - high
-      - scored
-      - patch
-      - rule_1.1.7
+    - level2
+    - scored
+    - patch
+    - rule_1.1.7
 
-      
 - name: "SCORED | 1.1.8 | PATCH | Ensure nodev option set on /var/tmp partition\n
          SCORED | 1.1.9 | PATCH | Ensure nosuid option set on /var/tmp partition\n
          SCORED | 1.1.10 | PATCH | Ensure noexec option set on /var/tmp partition"
@@ -176,6 +187,10 @@
     path: /var/tmp
     opts: "rw,nosuid,nodev,noexec,relatime"
     state: mounted
+    fstype: "tmpfs"
+    src: tmpfs
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
     - level1
     - scored
@@ -190,529 +205,596 @@
   register: var_log_mounted
   changed_when: no
   failed_when: no
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - high
-      - scored
-      - patch
-      - rule_1.1.11
+    - level2
+    - scored
+    - patch
+    - rule_1.1.11
 
 - name: "SCORED | 1.1.12 | PATCH | Ensure separate partition exists for /var/log/audit"
   shell: mount | grep "on /var/log/audit "
   register: var_log_audit_mounted
   changed_when: no
   failed_when: no
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - high
-      - scored
-      - patch
-      - rule_1.1.12
+    - level2
+    - scored
+    - patch
+    - rule_1.1.12
 
 - name: "SCORED | 1.1.13 | PATCH | Ensure separate partition exists for /home"
   shell: mount | grep "on /home "
   register: home_mounted
   changed_when: no
   failed_when: no
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - high
-      - scored
-      - patch
-      - rule_1.1.13
+    - level2
+    - scored
+    - patch
+    - rule_1.1.13
 
 - name: "SCORED | 1.1.14 | PATCH | Ensure nodev option set on /home partition"
   mount:
     path: /home
     opts: nodev
     state: mounted
+    fstype: "ext4"
+    src: home
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_1.1.14
-      - user_check
+    - level2
+    - patch
+    - rule_1.1.14
 
 - name: "SCORED | 1.1.15 | PATCH | Ensure nodev option set on /dev/shm partition\n
          SCORED | 1.1.16 | PATCH | Ensure nosuid option set on /dev/shm partition\n
          SCORED | 1.1.17 | PATCH | Ensure noexec option set on /dev/shm partition"
   mount:
-      name: /dev/shm
-      src: tmpfs
-      state: mounted
-      fstype: tmpfs
-      opts: "defaults,nodev,nosuid,noexec"
+    name: /dev/shm
+    src: tmpfs
+    state: mounted
+    fstype: tmpfs
+    opts: "defaults,nodev,nosuid,noexec"
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - medium
-      - scored
-      - patch
-      - rule_1.1.15
-      - rule_1.1.16
-      - rule_1.1.17
+    - level1
+    - scored
+    - patch
+    - rule_1.1.15
+    - rule_1.1.16
+    - rule_1.1.17
 
 - name: "NOTSCORED | 1.1.18 | PATCH | Ensure nodev option set on removable media partitions"
   command: /bin/true
   changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - medium
-      - notscored
-      - patch
-      - rule_1.1.18
-      - user_check
+    - level1
+    - notscored
+    - patch
+    - rule_1.1.18
 
 - name: "NOTSCORED | 1.1.19 | PATCH | Ensure nosuid option set on removable media partitions"
   command: /bin/true
   changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - notscored
-      - patch
-      - rule_1.1.19
+    - level1
+    - notscored
+    - patch
+    - rule_1.1.19
 
 - name: "NOTSCORED | 1.1.20 | PATCH | Ensure noexec option set on removable media partitions"
   command: /bin/true
   changed_when: no
+  when:
+    - centos7cis_level is defined and centos7cis_level1
   tags:
-      - level1
-      - notscored
-      - patch
-      - rule_1.1.20
+    - level1
+    - notscored
+    - patch
+    - rule_1.1.20
 
 - name: "SCORED | 1.1.21 | PATCH | Ensure sticky bit is set on all world-writable directories"
   shell: df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
   #when: sticky_bit_on_worldwritable_dirs_audit.rc == '0'
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_1.1.21
+    - level1
+    - patch
+    - rule_1.1.21
 
 - name: "SCORED | 1.1.22 | PATCH | Disable Automounting"
   systemd:
-      name: autofs
-      enabled: no
+    name: autofs
+    enabled: no
   when:
-    - not centos7cis_allow_autofs
-    - autofs_service_status.stdout == "loaded"
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_allow_autofs is defined and not centos7cis_allow_autofs
+    - autofs_service_status is defined and autofs_service_status.stdout == "loaded"
   tags:
-      - level1
-      - low
-      - patch
-      - rule_1.1.22
+    - level1
+    - patch
+    - rule_1.1.22
 
 - name: "NOTSCORED | 1.2.1 | PATCH | Ensure package manager repositories are configured"
   command: /bin/true
   changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - notscored
-      - patch
-      - rule_1.2.1
+    - level1
+    - notscored
+    - patch
+    - rule_1.2.1
 
-- name: "NOTSCORED | 1.2.2 | PATCH | Ensure GPG keys are configured"
-  command: /bin/true
-  changed_when: no
-  tags:
-      - level1
-      - low
-      - notscored
-      - patch
-      - rule_1.2.2
-
-- name: "SCORED | 1.2.3 | PATCH | Ensure gpgcheck is globally activated"
+- name: "SCORED | 1.2.2 | PATCH | Ensure gpgcheck is globally activated"
   replace:
-      name: /etc/yum.conf
-      regexp: "^gpgcheck=0"
-      replace: "gpgcheck=1"
+    name: /etc/yum.conf
+    regexp: "^gpgcheck=0"
+    replace: "gpgcheck=1"
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_1.2.3
+    - level1
+    - scored
+    - patch
+    - rule_1.2.2
 
-- name: "SCORED | 1.2.3 | PATCH | Ensure gpgcheck is globally activated"
+- name: "SCORED | 1.2.2 | PATCH | Ensure gpgcheck is globally activated"
   find:
-      paths: /etc/yum.repos.d
-      patterns: "*.repo"
+    paths: /etc/yum.repos.d
+    patterns: "*.repo"
   register: yum_repos
   changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_1.2.3
+    - level1
+    - scored
+    - patch
+    - rule_1.2.2
 
-- name: "SCORED | 1.2.3 | PATCH | Ensure gpgcheck is globally activated"
+- name: "SCORED | 1.2.2 | PATCH | Ensure gpgcheck is globally activated"
   replace:
-      name: "{{ item.path }}"
-      regexp: "^gpgcheck=0"
-      replace: "gpgcheck=1"
+    name: "{{ item.path }}"
+    regexp: "^gpgcheck=0"
+    replace: "gpgcheck=1"
   with_items:
-      - "{{ yum_repos.files }}"
+    - "{{ yum_repos.files }}"
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_1.2.3
+    - level1
+    - scored
+    - patch
+    - rule_1.2.2
+
+- name: "NOTSCORED | 1.2.3 | PATCH | Ensure GPG keys are configured"
+  command: /bin/true
+  changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+  tags:
+    - level1
+    - notscored
+    - patch
+    - rule_1.2.3
 
 - name: "SCORED | 1.3.1 | PATCH | Ensure AIDE is installed"
   yum:
-      name: aide
-      state: present
+    name: aide
+    state: present
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - medium
-      - scored
-      - aide
-      - patch
-      - rule_1.3.1
+    - level1
+    - scored
+    - aide
+    - patch
+    - rule_1.3.1
 
 - name: "SCORED | 1.3.1 | PATCH | Ensure AIDE is installed"
   command: /usr/sbin/aide --init -B 'database_out=file:/var/lib/aide/aide.db.gz'
   args:
-      creates: /var/lib/aide/aide.db.gz
-  when: centos7cis_config_aide
+    creates: /var/lib/aide/aide.db.gz
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_config_aide is defined and centos7cis_config_aide
   async: 45
   poll: 0
   tags:
-      - level1
-      - medium
-      - scored
-      - aide
-      - patch
-      - rule_1.3.1
+    - level1
+    - scored
+    - aide
+    - patch
+    - rule_1.3.1
 
 - name: "SCORED | 1.3.2 | PATCH | Ensure filesystem integrity is regularly checked"
   cron:
-      name: Run AIDE integrity check weekly
-      cron_file: "{{ centos7cis_aide_cron['cron_file'] }}"
-      user: "{{ centos7cis_aide_cron['cron_user'] }}"
-      minute: "{{ centos7cis_aide_cron['aide_minute'] | default('0') }}"
-      hour: "{{ centos7cis_aide_cron['aide_hour'] | default('5') }}"
-      day: "{{ centos7cis_aide_cron['aide_day'] | default('*') }}"
-      month: "{{ centos7cis_aide_cron['aide_month'] | default('*') }}"
-      weekday: "{{ centos7cis_aide_cron['aide_weekday'] | default('*') }}"
-      job: "{{ centos7cis_aide_cron['aide_job'] }}"
+    name: Run AIDE integrity check weekly
+    cron_file: "{{ centos7cis_aide_cron['cron_file'] }}"
+    user: "{{ centos7cis_aide_cron['cron_user'] }}"
+    minute: "{{ centos7cis_aide_cron['aide_minute'] | default('0') }}"
+    hour: "{{ centos7cis_aide_cron['aide_hour'] | default('5') }}"
+    day: "{{ centos7cis_aide_cron['aide_day'] | default('*') }}"
+    month: "{{ centos7cis_aide_cron['aide_month'] | default('*') }}"
+    weekday: "{{ centos7cis_aide_cron['aide_weekday'] | default('*') }}"
+    job: "{{ centos7cis_aide_cron['aide_job'] }}"
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - medium
-      - scored
-      - aide
-      - file_integrity
-      - patch
-      - rule_1.3.2
+    - level1
+    - scored
+    - aide
+    - file_integrity
+    - patch
+    - rule_1.3.2
+
+- name: "SCORED | 1.3.2 | PATCH | Ensure filesystem integrity is regularly checked"
+  cron:
+    name: Run AIDE integrity check weekly
+    cron_file: "/var/spool/cron/root"
+    user: "{{ centos7cis_aide_cron['cron_user'] }}"
+    minute: "{{ centos7cis_aide_cron['aide_minute'] | default('0') }}"
+    hour: "{{ centos7cis_aide_cron['aide_hour'] | default('5') }}"
+    day: "{{ centos7cis_aide_cron['aide_day'] | default('*') }}"
+    month: "{{ centos7cis_aide_cron['aide_month'] | default('*') }}"
+    weekday: "{{ centos7cis_aide_cron['aide_weekday'] | default('*') }}"
+    job: "{{ centos7cis_aide_cron['aide_job'] }}"
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+  tags:
+    - level1
+    - scored
+    - aide
+    - file_integrity
+    - patch
+    - rule_1.3.2
 
 - name: "SCORED | 1.4.1 | PATCH | Ensure permissions on bootloader config are configured"
   stat:
-      path: /etc/grub2.cfg
+    path: /etc/grub2.cfg
   register: grub_cfg
   tags:
-      - level1
-      - low
-      - scored
-      - grub
-      - patch
-      - rule_1.4.1
+    - level1
+    - low
+    - scored
+    - grub
+    - patch
+    - rule_1.4.1
 
 - name: "SCORED | 1.4.1 | PATCH | Ensure permissions on bootloader config are configured"
   file:
-      path: "{{ grub_cfg.stat.lnk_source }}"
-      owner: root
-      group: root
-      mode: 0600
-  when: grub_cfg.stat.exists and grub_cfg.stat.islnk
+    path: "{{ grub_cfg.stat.lnk_source }}"
+    owner: root
+    group: root
+    mode: 0600
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - grub_cfg is defined and grub_cfg.stat.exists and grub_cfg.stat.islnk
   tags:
-      - level1
-      - low
-      - scored
-      - grub
-      - patch
-      - rule_1.4.1
+    - level1
+    - scored
+    - grub
+    - patch
+    - rule_1.4.1
 
 - name: "SCORED | 1.4.2 | PATCH | Ensure bootloader password is set"
   grub_crypt:
-      password: "{{ centos7cis_bootloader_password }}"
+    password: "{{ centos7cis_bootloader_password }}"
   register: grub_pass
-  when: centos7cis_set_boot_pass
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_set_boot_pass is defined and centos7cis_set_boot_pass
   tags:
-      - level1
-      - high
-      - scored
-      - grub
-      - patch
-      - rule_1.4.2
+    - level1
+    - scored
+    - grub
+    - patch
+    - rule_1.4.2
 
 - name: "SCORED | 1.4.2 | PATCH | Ensure bootloader password is set"
   copy:
-      dest: /boot/grub2/user.cfg
-      content: "GRUB2_PASSWORD={{ grub_pass.passhash }}"
-  when: centos7cis_set_boot_pass and grub_pass is defined and grub_pass.passhash is defined and grub_pass.passhash != ''
+    dest: /boot/grub2/user.cfg
+    content: "GRUB2_PASSWORD={{ grub_pass.passhash }}"
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_set_boot_pass is defined and centos7cis_set_boot_pass and grub_pass is defined and grub_pass.passhash is defined and grub_pass.passhash != ''
   notify: generate new grub config
   tags:
-      - level1
-      - high
-      - scored
-      - grub
-      - patch
-      - rule_1.4.2
+    - level1
+    - scored
+    - grub
+    - patch
+    - rule_1.4.2
 
 - name: "NOTSCORED | 1.4.3 | PATCH | Ensure authentication required for single user mode"
   command: /bin/true
+  changed_when: no
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level1
-      - level2
-      - high
-      - patch
-      - rule_1.4.3
+    - level2
+    - patch
+    - rule_1.4.3
 
 - name: "SCORED | 1.5.1 | PATCH | Ensure core dumps are restricted"
   lineinfile:
-      state: present
-      dest: /etc/security/limits.conf
-      regexp: '^#?\\*.*core'
-      line: '*                hard    core            0'
-      insertbefore: '^# End of file'
+    state: present
+    dest: /etc/security/limits.conf
+    regexp: '^#?\\*.*core'
+    line: '*                hard    core            0'
+    insertbefore: '^# End of file'
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - limits
-      - patch
-      - rule_1.5.1
+    - level1
+    - scored
+    - limits
+    - patch
+    - rule_1.5.1
 
 - name: "SCORED | 1.5.1 | PATCH | Ensure core dumps are restricted"
   sysctl:
-      name: fs.suid_dumpable
-      value: 0
-      state: present
-      reload: yes
-      sysctl_set: yes
-      ignoreerrors: yes
+    name: fs.suid_dumpable
+    value: 0
+    state: present
+    reload: yes
+    sysctl_set: yes
+    ignoreerrors: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - sysctl
-      - patch
-      - rule_1.5.1
+    - level1
+    - scored
+    - sysctl
+    - patch
+    - rule_1.5.1
 
 - name: "NOTSCORED | 1.5.2 | PATCH | Ensure XD/NX support is enabled"
   command: /bin/true
   changed_when: no
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level1
-      - level2
-      - low
-      - patch
-      - rule_1.5.2
+    - level2
+    - patch
+    - rule_1.5.2
 
 - name: "SCORED | 1.5.3 | PATCH | Ensure address space layout randomization (ASLR) is enabled"
   sysctl:
-      name: kernel.randomize_va_space
-      value: 2
-      state: present
-      reload: yes
-      sysctl_set: yes
-      ignoreerrors: yes
+    name: kernel.randomize_va_space
+    value: 2
+    state: present
+    reload: yes
+    sysctl_set: yes
+    ignoreerrors: yes
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_1.5.3
+    - level1
+    - scored
+    - patch
+    - rule_1.5.3
 
 - name: "SCORED | 1.5.4 | PATCH | Ensure prelink is disabled"
   command: prelink -ua
-  when: prelink_installed.rc == 0
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - prelink_installed is defined and prelink_installed.rc == 0
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_1.5.4
+    - level1
+    - scored
+    - patch
+    - rule_1.5.4
 
 - name: "SCORED | 1.5.4 | PATCH | Ensure prelink is disabled"
   yum:
     name: prelink
     state: absent
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_1.5.4
+    - level1
+    - scored
+    - patch
+    - rule_1.5.4
 
 - name: "SCORED | 1.6.1.1 | PATCH | Ensure SELinux is not disabled in bootloader configuration"
   replace:
-      dest: /etc/default/grub
-      regexp: '(selinux|enforcing)\s*=\s*0\s*'
-      follow: yes
+    dest: /etc/default/grub
+    regexp: '(selinux|enforcing)\s*=\s*0\s*'
+    follow: yes
   register: selinux_grub_patch
   ignore_errors: yes
   notify: generate new grub config
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - scored
-      - patch
-      - rule_1.6.1.1
+    - level2
+    - scored
+    - patch
+    - rule_1.6.1.1
 
 - name: "SCORED | 1.6.1.2 | PATCH | Ensure the SELinux state is enforcing"
   selinux:
-      conf: /etc/selinux/config
-      policy: "{{ centos7cis_selinux_pol }}"
-      state: enforcing
-  when: not centos7cis_selinux_disable
+    conf: /etc/selinux/config
+    policy: "{{ centos7cis_selinux_pol }}"
+    state: enforcing
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
+    - centos7cis_selinux_disable is defined and not centos7cis_selinux_disable
   tags:
-      - level2
-      - scored
-      - selinux
-      - patch
-      - rule_1.6.1.2
+    - level2
+    - scored
+    - selinux
+    - patch
+    - rule_1.6.1.2
 
 - name: "SCORED | 1.6.1.3 | PATCH | Ensure SELinux policy is configured"
   selinux:
-      conf: /etc/selinux/config
-      policy: "{{ centos7cis_selinux_pol }}"
-      state: enforcing
-  when: not centos7cis_selinux_disable
+    conf: /etc/selinux/config
+    policy: "{{ centos7cis_selinux_pol }}"
+    state: enforcing
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
+    - centos7cis_selinux_disable is defined and not centos7cis_selinux_disable
   tags:
-      - level2
-      - scored
-      - selinux
-      - patch
-      - rule_1.6.1.3
+    - level2
+    - scored
+    - selinux
+    - patch
+    - rule_1.6.1.3
 
 - name: "SCORED | 1.6.1.4 | PATCH | Ensure SETroubleshoot is not installed"
   yum:
-      name: setroubleshoot
-      state: absent
+    name: setroubleshoot
+    state: absent
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - scored
-      - selinux
-      - patch
-      - rule_1.6.1.4
+    - level2
+    - scored
+    - selinux
+    - patch
+    - rule_1.6.1.4
 
 - name: "SCORED | 1.6.1.5 | PATCH | Ensure the MCS Translation Service (mcstrans) is not installed"
   yum:
-      name: mcstrans
-      state: absent
+    name: mcstrans
+    state: absent
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - scored
-      - patch
-      - rule_1.6.1.5
+    - level2
+    - scored
+    - patch
+    - rule_1.6.1.5
 
 - name: "SCORED | 1.6.2 | PATCH | Ensure SELinux is installed"
   yum:
-      name: libselinux
-      state: present
+    name: libselinux
+    state: present
+  when:
+    - centos7cis_level2 is defined and centos7cis_level2
   tags:
-      - level2
-      - scored
-      - patch
-      - rule_1.6.2
+    - level2
+    - scored
+    - patch
+    - rule_1.6.2
 
 - name: "SCORED | 1.7.1.1 | PATCH | Ensure message of the day is configured properly"
   template:
-      src: etc/motd.j2
-      dest: /etc/motd
+    src: etc/motd.j2
+    dest: /etc/motd
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - banner
-      - patch
-      - rule_1.7.1.1
+    - level1
+    - banner
+    - patch
+    - rule_1.7.1.1
 
 - name: "NOTSCORED | 1.7.1.2 | PATCH | Ensure local login warning banner is configured properly"
   template:
-      src: etc/issue.j2
-      dest: /etc/issue
+    src: etc/issue.j2
+    dest: /etc/issue
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - patch
-      - rule_1.7.1.2
+    - level1
+    - patch
+    - rule_1.7.1.2
 
 - name: "NOTSCORED | 1.7.1.3 | PATCH | Ensure remote login warning banner is configured properly"
   template:
-      src: etc/issue.net.j2
-      dest: /etc/issue.net
+    src: etc/issue.net.j2
+    dest: /etc/issue.net
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - banner
-      - patch
-      - rule_1.7.1.3
+    - level1
+    - banner
+    - patch
+    - rule_1.7.1.3
 
 - name: "NOTSCORED | 1.7.1.4 | PATCH | Ensure permissions on /etc/motd are configured"
   file:
-      dest: /etc/motd
-      state: file
-      owner: root
-      group: root
-      mode: 0644
+    dest: /etc/motd
+    state: file
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - perms
-      - patch
-      - rule_1.7.1.4
+    - level1
+    - perms
+    - patch
+    - rule_1.7.1.4
 
 - name: "SCORED | 1.7.1.5 | PATCH | Ensure permissions on /etc/issue are configured"
   file:
-      dest: /etc/issue
-      state: file
-      owner: root
-      group: root
-      mode: 0644
+    dest: /etc/issue
+    state: file
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - perms
-      - patch
-      - rule_1.7.1.5
+    - level1
+    - perms
+    - patch
+    - rule_1.7.1.5
 
 - name: "NOTSCORED | 1.7.1.6 | PATCH | Ensure permissions on /etc/issue.net are configured"
   file:
-      dest: /etc/issue.net
-      state: file
-      owner: root
-      group: root
-      mode: 0644
+    dest: /etc/issue.net
+    state: file
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - low
-      - perms
-      - patch
-      - rule_1.7.1.6
+    - level1
+    - perms
+    - patch
+    - rule_1.7.1.6
 
 - name: "SCORED | 1.7.2 | PATCH | Ensure GDM login banner is configured"
   debug:
-      msg: "Not currently implemented"
+    msg: "Not currently implemented"
   #when: gdm_installed_audit.rc == '0' and gdm_login_banner_configured_audit
   changed_when: no
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_1.7.2
+    - level1
+    - patch
+    - rule_1.7.2
 
 - name: "NOTSCORED | 1.8 | PATCH | Ensure updates, patches, and additional security software are installed"
   yum:
     name: "*"
     state: latest
-  when: centos7cis_update
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_update is defined and centos7cis_update
   tags:
     - level1
-    - level2
-    - notscored
     - patch
     - rule_1.8

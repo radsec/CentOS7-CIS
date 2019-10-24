@@ -1,0 +1,16 @@
+---
+- hosts:  all
+  become: yes
+  become_method: sudo
+  gather_facts: true
+  vars:
+    ignore_errors: true
+    ignore_unreachable: true
+  roles:
+# Match role folder name here - CentOS7-CIS
+    - role: CentOS7-CIS
+  tags:
+    - always
+    - prelim_tasks
+    - level2
+    - post_tasks
