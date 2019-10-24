@@ -1,13 +1,13 @@
 - name: "SCORED | 2.1.1 | PATCH | Ensure chargen services are not enabled | chargen-dgram"
   stat:
-      path: /etc/xinetd.d/chargen-dgram
+    path: /etc/xinetd.d/chargen-dgram
   register: chargen_dgram_service
   tags:
-      - level1
-      - scored
-      - services
-      - patch
-      - rule_2.1.1
+    - level1
+    - scored
+    - services
+    - patch
+    - rule_2.1.1
 
 - name: "SCORED | 2.1.1 | PATCH | Ensure chargen services are not enabled | chargen-dgram"
   command: chkconfig chargen-dgram off
@@ -17,22 +17,22 @@
     - chargen_dgram_service is defined
     - chargen_dgram_service.stat.exists
   tags:
-      - level1
-      - scored
-      - services
-      - patch
-      - rule_2.1.1
+    - level1
+    - scored
+    - services
+    - patch
+    - rule_2.1.1
 
 - name: "SCORED | 2.1.1 | PATCH | Ensure chargen services are not enabled | chargen-stream"
   stat:
-      path: /etc/xinetd.d/chargen-stream
+    path: /etc/xinetd.d/chargen-stream
   register: chargen_stream_service
   tags:
-      - level1
-      - scored
-      - services
-      - patch
-      - rule_2.1.1
+    - level1
+    - scored
+    - services
+    - patch
+    - rule_2.1.1
 
 - name: "SCORED | 2.1.1 | PATCH | Ensure chargen services are not enabled | chargen-stream"
   command: chkconfig chargen-stream off
@@ -42,22 +42,22 @@
     - chargen_stream_service is defined
     - chargen_stream_service.stat.exists
   tags:
-      - level1
-      - scored
-      - services
-      - patch
-      - rule_2.1.1
+    - level1
+    - scored
+    - services
+    - patch
+    - rule_2.1.1
 
 - name: "SCORED | 2.1.2 | PATCH | Ensure daytime services are not enabled | daytime-dgram"
   stat:
-      path: /etc/xinetd.d/daytime-dgram
+    path: /etc/xinetd.d/daytime-dgram
   register: daytime_dgram_service
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_2.1.2
+    - level1
+    - low
+    - scored
+    - patch
+    - rule_2.1.2
 
 - name: "SCORED | 2.1.2 | PATCH | Ensure daytime services are not enabled | daytime-dgram"
   command: chkconfig daytime-dgram off
@@ -67,21 +67,21 @@
     - daytime_dgram_service is defined
     - daytime_dgram_service.stat.exists
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_2.1.2
+    - level1
+    - scored
+    - patch
+    - rule_2.1.2
 
 - name: "SCORED | 2.1.2 | PATCH | Ensure daytime services are not enabled | daytime-stream"
   stat:
-      path: /etc/xinetd.d/daytime-stream
+    path: /etc/xinetd.d/daytime-stream
   register: daytime_stream_service
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_2.1.2
+    - level1
+    - low
+    - scored
+    - patch
+    - rule_2.1.2
 
 - name: "SCORED | 2.1.2 | PATCH | Ensure daytime services are not enabled | daytime-stream"
   command: chkconfig daytime-stream off
@@ -91,20 +91,20 @@
     - daytime_stream_service is defined
     - daytime_stream_service.stat.exists
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_2.1.2
+    - level1
+    - scored
+    - patch
+    - rule_2.1.2
 
 - name: "SCORED | 2.1.3 | PATCH | Ensure discard services are not enabled | discard-dgram"
   stat:
       path: /etc/xinetd.d/discard-dgram
   register: discard_dgram_service
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_2.1.3
+    - level1
+    - scored
+    - patch
+    - rule_2.1.3
 
 - name: "SCORED | 2.1.3 | PATCH | Ensure discard services are not enabled | discard-dgram"
   command: chkconfig discard-dgram off
@@ -114,21 +114,21 @@
     - discard_dgram_service is defined
     - discard_dgram_service.stat.exists
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_2.1.3
+    - level1
+    - scored
+    - patch
+    - rule_2.1.3
 
 - name: "SCORED | 2.1.3 | PATCH | Ensure discard services are not enabled | discard-stream"
   stat:
-      path: /etc/xinetd.d/discard-stream
+    path: /etc/xinetd.d/discard-stream
   register: discard_stream_service
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_2.1.3
+    - level1
+    - low
+    - scored
+    - patch
+    - rule_2.1.3
 
 - name: "SCORED | 2.1.3 | PATCH | Ensure discard services are not enabled | discard-stream"
   command: chkconfig discard-stream off
@@ -138,21 +138,21 @@
     - discard_stream_service is defined
     - discard_stream_service.stat.exists
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_2.1.3
+    - level1
+    - scored
+    - patch
+    - rule_2.1.3
 
 - name: "SCORED | 2.1.4 | PATCH | Ensure echo services are not enabled | echo-dgram"
   stat:
-      path: /etc/xinetd.d/echo-dgram
+    path: /etc/xinetd.d/echo-dgram
   register: echo_dgram_service
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_2.1.4
+    - level1
+    - low
+    - scored
+    - patch
+    - rule_2.1.4
 
 - name: "SCORED | 2.1.4 | PATCH | Ensure echo services are not enabled | echo-dgram"
   command: chkconfig echo-dgram off
@@ -162,20 +162,20 @@
     - echo_dgram_service is defined
     - echo_dgram_service.stat.exists
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_2.1.4
+    - level1
+    - scored
+    - patch
+    - rule_2.1.4
 
 - name: "SCORED | 2.1.4 | PATCH | Ensure echo services are not enabled | echo-stream"
   stat:
       path: /etc/xinetd.d/echo-stream
   register: echo_stream_service
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_2.1.4
+    - level1
+    - scored
+    - patch
+    - rule_2.1.4
 
 - name: "SCORED | 2.1.4 | PATCH | Ensure echo services are not enabled | echo-stream"
   command: chkconfig echo-stream off
@@ -192,14 +192,14 @@
 
 - name: "SCORED | 2.1.5 | PATCH | Ensure time services are not enabled | time-dgram"
   stat:
-      path: /etc/xinetd.d/time-dgram
+    path: /etc/xinetd.d/time-dgram
   register: time_dgram_service
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_2.1.5
+    - level1
+    - low
+    - scored
+    - patch
+    - rule_2.1.5
 
 - name: "SCORED | 2.1.5 | PATCH | Ensure time services are not enabled | time-dgram"
   command: chkconfig time-dgram off
@@ -216,14 +216,14 @@
 
 - name: "SCORED | 2.1.5 | PATCH | Ensure time services are not enabled | time-stream"
   stat:
-      path: /etc/xinetd.d/time-stream
+    path: /etc/xinetd.d/time-stream
   register: time_stream_service
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_2.1.5
+    - level1
+    - low
+    - scored
+    - patch
+    - rule_2.1.5
 
 - name: "SCORED | 2.1.5 | PATCH | Ensure time services are not enabled | time-stream"
   command: chkconfig time-stream off
@@ -240,14 +240,14 @@
 
 - name: "SCORED | 2.1.6 | PATCH | Ensure tftp server is not enabled"
   stat:
-      path: /etc/xinetd.d/tftp
+    path: /etc/xinetd.d/tftp
   register: tftp_service
   tags:
-      - level1
-      - low
-      - scored
-      - patch
-      - rule_2.1.6
+    - level1
+    - low
+    - scored
+    - patch
+    - rule_2.1.6
 
 - name: "SCORED | 2.1.6 | PATCH | Ensure tftp server is not enabled"
   command: chkconfig tftp off
@@ -362,17 +362,17 @@
 
 - name: "SCORED | 2.2.1.2 | PATCH | Ensure ntp is configured | modify /usr/lib/systemd/system/ntpd.service"
   lineinfile:
-      dest: /usr/lib/systemd/system/ntpd.service
-      regexp: "^(#)?ExecStart"
-      line: "ExecStart=/usr/sbin/ntpd -u ntp:ntp $OPTIONS"
+    dest: /usr/lib/systemd/system/ntpd.service
+    regexp: "^(#)?ExecStart"
+    line: "ExecStart=/usr/sbin/ntpd -u ntp:ntp $OPTIONS"
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_time_synchronization is defined
     - centos7cis_time_synchronization == "ntp"
   tags:
-      - level1
-      - patch
-      - rule_2.2.1.2
+    - level1
+    - patch
+    - rule_2.2.1.2
 
 - name: "SCORED | 2.2.1.3 | PATCH | Ensure chrony is configured"
   template:
@@ -386,9 +386,9 @@
     - centos7cis_time_synchronization is defined
     - centos7cis_time_synchronization == "chrony"
   tags:
-      - level1
-      - patch
-      - rule_2.2.1.3
+    - level1
+    - patch
+    - rule_2.2.1.3
 
 - name: "SCORED | 2.2.1.3 | PATCH | Ensure chrony is configured | modify /etc/sysconfig/chronyd"
   template:
@@ -426,8 +426,8 @@
 
 - name: "SCORED | 2.2.2 | PATCH | Ensure X Window System is not installed"
   yum:
-      name: "{{item}}"
-      state: absent
+    name: "{{item}}"
+    state: absent
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_xwindows_required is defined not centos7cis_xwindows_required
@@ -463,185 +463,185 @@
 
 - name: "SCORED | 2.2.4 | PATCH | Ensure CUPS is not enabled"
   service:
-      name: cups
-      state: stopped
-      enabled: no
+    name: cups
+    state: stopped
+    enabled: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_cups_server is defined and (not centos7cis_cups_server and cups_service_status.stdout == "loaded")
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks  
   tags:
-      - level1
-      - scored
-      - cups
-      - services
-      - patch
-      - rule_2.2.4
-      - disable_service_checks
+    - level1
+    - scored
+    - cups
+    - services
+    - patch
+    - rule_2.2.4
+    - disable_service_checks
 
 - name: "SCORED | 2.2.5 | PATCH | Ensure DHCP Server is not enabled"
   service:
-      name: dhcpd
-      state: stopped
-      enabled: no
+    name: dhcpd
+    state: stopped
+    enabled: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_dhcp_server is defined and (not centos7cis_dhcp_server and dhcpd_service_status.stdout == "loaded")
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
-      - level1
-      - scored
-      - dhcp
-      - services
-      - patch
-      - rule_2.2.5
-      - disable_service_checks
+    - level1
+    - scored
+    - dhcp
+    - services
+    - patch
+    - rule_2.2.5
+    - disable_service_checks
 
 - name: "SCORED | 2.2.6 | PATCH | Ensure LDAP server is not enabled"
   service:
-      name: slapd
-      state: stopped
-      enabled: no
+    name: slapd
+    state: stopped
+    enabled: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_ldap_server is defined and (not centos7cis_ldap_server and slapd_service_status.stdout == "loaded")
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
-      - level1
-      - scored
-      - ldap
-      - services
-      - patch
-      - rule_2.2.6
-      - disable_service_checks
+    - level1
+    - scored
+    - ldap
+    - services
+    - patch
+    - rule_2.2.6
+    - disable_service_checks
 
 - name: "SCORED | 2.2.7 | PATCH | Ensure NFS and RPC are not enabled"
   service:
-      name: nfs
-      state: stopped
-      enabled: no
+    name: nfs
+    state: stopped
+    enabled: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_nfs_rpc_server is defined and (not centos7cis_nfs_rpc_server and nfs_service_status.stdout == "loaded")
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
-      - level1
-      - scored
-      - nfs
-      - rpc
-      - services
-      - patch
-      - rule_2.2.7
-      - disable_service_checks
+    - level1
+    - scored
+    - nfs
+    - rpc
+    - services
+    - patch
+    - rule_2.2.7
+    - disable_service_checks
 
 - name: "SCORED | 2.2.7 | PATCH | Ensure NFS and RPC are not enabled"
   service:
-      name: rpcbind
-      state: stopped
-      enabled: no
+    name: rpcbind
+    state: stopped
+    enabled: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_nfs_rpc_server is defined and (not centos7cis_nfs_rpc_server and rpcbind_service_status.stdout == "loaded")
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
-      - level1
-      - scored
-      - nfs
-      - rpc
-      - services
-      - patch
-      - rule_2.2.7
-      - disable_service_checks
+    - level1
+    - scored
+    - nfs
+    - rpc
+    - services
+    - patch
+    - rule_2.2.7
+    - disable_service_checks
 
 - name: "SCORED | 2.2.8 | PATCH | Ensure DNS Server is not enabled"
   service:
-      name: named
-      state: stopped
-      enabled: no
+    name: named
+    state: stopped
+    enabled: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_named_server is defined and (not centos7cis_named_server and named_service_status.stdout == "loaded")
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
-      - level1
-      - patch
-      - rule_2.2.8
-      - disable_service_checks
+    - level1
+    - patch
+    - rule_2.2.8
+    - disable_service_checks
 
 - name: "SCORED | 2.2.9 | PATCH | Ensure FTP Server is not enabled"
   service:
-      name: vsftpd
-      state: stopped
-      enabled: no
+    name: vsftpd
+    state: stopped
+    enabled: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_vsftpd_server is defined and (not centos7cis_vsftpd_server and vsftpd_service_status.stdout == "loaded")
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
-      - level1
-      - patch
-      - rule_2.2.9
-      - disable_service_checks
+    - level1
+    - patch
+    - rule_2.2.9
+    - disable_service_checks
 
 - name: "SCORED | 2.2.10 | PATCH | Ensure HTTP server is not enabled"
   service:
-      name: httpd
-      state: stopped
-      enabled: no
+    name: httpd
+    state: stopped
+    enabled: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_httpd_server is defined and (not centos7cis_httpd_server and httpd_service_status.stdout == "loaded")
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
-      - level1
-      - patch
-      - rule_2.2.10
-      - disable_service_checks
+    - level1
+    - patch
+    - rule_2.2.10
+    - disable_service_checks
 
 - name: "SCORED | 2.2.11 | PATCH | Ensure IMAP and POP3 server is not enabled"
   service:
-      name: dovecot
-      state: stopped
-      enabled: no
+    name: dovecot
+    state: stopped
+    enabled: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_dovecot_server is defined and (not centos7cis_dovecot_server and dovecot_service_status.stdout == "loaded")
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
-      - level1
-      - patch
-      - rule_2.2.11
-      - disable_service_checks
+    - level1
+    - patch
+    - rule_2.2.11
+    - disable_service_checks
 
 - name: "SCORED | 2.2.12 | PATCH | Ensure Samba is not enabled"
   service:
-      name: smb
-      state: stopped
-      enabled: no
+    name: smb
+    state: stopped
+    enabled: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_smb_server is defined and (not centos7cis_smb_server and smb_service_status.stdout == "loaded")
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
-      - level1
-      - patch
-      - rule_2.2.12
-      - disable_service_checks
+    - level1
+    - patch
+    - rule_2.2.12
+    - disable_service_checks
 
 - name: "SCORED | 2.2.13 | PATCH | Ensure HTTP Proxy Server is not enabled"
   service:
-      name: squid
-      state: stopped
-      enabled: no
+    name: squid
+    state: stopped
+    enabled: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_squid_server is defined and (not centos7cis_squid_server and squid_service_status.stdout == "loaded")
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
-      - level1
-      - patch
-      - rule_2.2.13
-      - disable_service_checks
+    - level1
+    - patch
+    - rule_2.2.13
+    - disable_service_checks
 
 - name: "SCORED | 2.2.14 | PATCH | Ensure SNMP Server is not enabled"
   service:
