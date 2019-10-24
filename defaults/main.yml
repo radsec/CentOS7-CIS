@@ -10,6 +10,10 @@ centos7cis_section4: true
 centos7cis_section5: true
 centos7cis_section6: true
 
+# Set to true to run either level1, level2, or set both to true to run level1 and level2 checks.
+centos7cis_level1: true
+centos7cis_level2: false
+
 ############################
 ### Section 1 Parameters ###
 ############################

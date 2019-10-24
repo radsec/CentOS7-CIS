@@ -247,15 +247,16 @@
     fstype: "{{ item.fstype }}"
     src: "{{ item.device }}"
   tags:
-      - level1
-      - level2
-      - patch
-      - rule_1.1.14
-      - user_check
+    - level1
+    - level2
+    - patch
+    - rule_1.1.14
+    - user_check
   when:
-      - item.mount == "/home"
+    - centos7cis_level2 is defined and centos7cis_level2
+    - item.mount == "/home"
   with_items:
-      - "{{ ansible_mounts }}"
+    - "{{ ansible_mounts }}"
 
 - name: "SCORED | 1.1.15 | PATCH | Ensure nodev option set on /dev/shm partition\n
          SCORED | 1.1.16 | PATCH | Ensure nosuid option set on /dev/shm partition\n
