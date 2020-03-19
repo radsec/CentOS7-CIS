@@ -411,6 +411,8 @@
     - patch
     - rule_3.6
 
+- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured -UDP"
+  iptables:
     ip_version: ipv4
     chain: INPUT
     protocol: udp
@@ -427,7 +429,7 @@
     - rule_3.6.4
     - low
 
-- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
+- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured -ICMP"
   iptables:
     ip_version: ipv4
     chain: INPUT
