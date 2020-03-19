@@ -410,7 +410,7 @@
     - level1
     - patch
     - rule_3.6
-
+  iptables:
     ip_version: ipv4
     chain: INPUT
     protocol: udp
