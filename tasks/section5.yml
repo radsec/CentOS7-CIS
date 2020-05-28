@@ -426,7 +426,7 @@
     - { key: 'lcredit', value: '-1' }
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - centos7cis_password_creation_requirements is defined and centos7cis_password_creation_requirements 
+    - centos7cis_password_creation_requirements is defined and centos7cis_password_creation_requirements
   tags:
     - level1
     - patch
@@ -440,7 +440,7 @@
 
 - name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured"
   pamd:
-    name: '{{item}}'
+    name: '{{ item }}'
     type: auth
     control: sufficient
     module_path: pam_unix.so
@@ -464,7 +464,7 @@
 
 - name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured"
   pamd:
-    name: '{{item}}'
+    name: '{{ item }}'
     type: auth
     control: required
     module_path: pam_faillock.so

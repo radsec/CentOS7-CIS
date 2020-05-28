@@ -11,7 +11,7 @@
 
 - name: "Check OS version and family"
   debug:
-    msg: "PASS | This role can only be executed on CentOS 7 operating systems"  
+    msg: "PASS | This role can only be executed on CentOS 7 operating systems"
   when:
     - ansible_distribution|lower == 'centos'
     - ansible_distribution_major_version is version_compare('7', '==')
@@ -27,7 +27,7 @@
 
 - name: "Check ansible version"
   debug:
-    msg: "PASS | The detected Ansible version is greater than 2.5"  
+    msg: "PASS | The detected Ansible version is greater than 2.5"
   when: ansible_version.full is version_compare('2.5', '>=')
   tags:
     - always
