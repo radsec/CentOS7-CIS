@@ -97,7 +97,7 @@
     dest: /etc/group-
     owner: root
     group: root
-    mode: 0600
+    mode: 0644
   when:
     - centos7cis_level1 is defined and centos7cis_level1
   tags:
@@ -111,7 +111,7 @@
     dest: /etc/gshadow-
     owner: root
     group: root
-    mode: 0600
+    mode: 0000
   when:
     - centos7cis_level1 is defined and centos7cis_level1
   tags:
