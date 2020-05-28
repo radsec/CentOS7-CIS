@@ -52,7 +52,7 @@
 
 - name: "PRELIM | Check if syslog-ng package is installed"
   command: rpm -q syslog-ng
-  register: syslog-ng_installed
+  register: syslog_ng_installed
   changed_when: no
   failed_when: no
   check_mode: no

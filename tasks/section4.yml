@@ -298,6 +298,7 @@
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_rsyslog is defined and centos7cis_rsyslog
+    - rsyslog_installed is defined and rsyslog_installed
   tags:
       - level2
       - patch
@@ -325,6 +326,7 @@
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_rsyslog is defined and centos7cis_rsyslog
+    - rsyslog_installed is defined and rsyslog_installed
   tags:
       - level1
       - patch
@@ -338,6 +340,7 @@
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_rsyslog is defined and centos7cis_rsyslog
+    - rsyslog_installed is defined and rsyslog_installed
   tags:
       - level1
       - patch
@@ -354,6 +357,7 @@
     - centos7cis_rsyslog is defined and centos7cis_rsyslog is defined
     - not centos7cis_log_server
     - centos7cis_rsyslog
+    - rsyslog_installed is defined and rsyslog_installed
   tags:
       - level1
       - patch
@@ -370,6 +374,7 @@
     - centos7cis_rsyslog is defined and centos7cis_rsyslog is defined
     - not centos7cis_log_server
     - centos7cis_rsyslog
+    - rsyslog_installed is defined and rsyslog_installed
   tags:
       - level1
       - patch
@@ -386,6 +391,7 @@
     - centos7cis_rsyslog is defined and centos7cis_log_server is defined
     - centos7cis_rsyslog
     - centos7cis_log_server
+    - rsyslog_installed is defined and rsyslog_installed
   tags:
       - level1
       - patch
@@ -402,6 +408,7 @@
     - centos7cis_rsyslog is defined and centos7cis_log_server is defined
     - centos7cis_rsyslog
     - centos7cis_log_server
+    - rsyslog_installed is defined and rsyslog_installed
   tags:
       - level1
       - patch
@@ -414,6 +421,7 @@
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_rsyslog is defined and centos7cis_rsyslog
+    - syslog_ng_installed is defined and syslog_ng_installed
   tags:
       - level1
       - patch
@@ -443,6 +451,7 @@
     - centos7cis_syslog_ng is defined and centos7cis_log_server is defined
     - centos7cis_syslog_ng
     - centos7cis_log_server
+    - syslog_ng_installed is defined and syslog_ng_installed
   tags:
       - level1
       - patch
@@ -456,6 +465,7 @@
     - centos7cis_syslog_ng is defined and centos7cis_log_server is defined
     - centos7cis_syslog_ng
     - centos7cis_log_server
+    - syslog_ng_installed is defined and syslog_ng_installed
   tags:
       - level1
       - patch
@@ -469,6 +479,7 @@
     - centos7cis_syslog_ng is defined and centos7cis_log_server is defined
     - centos7cis_syslog_ng
     - centos7cis_log_server
+    - syslog_ng_installed is defined and syslog_ng_installed
   tags:
       - level1
       - patch
@@ -491,11 +502,11 @@
   yum:
     name: syslog-ng
     state: present
-  when: 
+  when:
+    - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_syslog_ng is defined and centos7cis_syslog_ng
   tags:
       - level1
-      - level2
       - low
       - patch
       - rule_4.2.3
