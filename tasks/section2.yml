@@ -255,11 +255,11 @@
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
-    - tftp_service.stat.exists and centos7cis_tftp_server == false
+    - tftp_service.stat.exists and not centos7cis_tftp_server
   tags:
     - level1
     - scored
-    - patch 
+    - patch
     - rule_2.1.6
 
 - name: "SCORED | 2.1.7 | PATCH | Ensure xinetd is not enabled"
@@ -426,7 +426,7 @@
 
 - name: "SCORED | 2.2.2 | PATCH | Ensure X Window System is not installed"
   yum:
-    name: "{{item}}"
+    name: "{{ item }}"
     state: absent
   when:
     - centos7cis_level1 is defined and centos7cis_level1
@@ -469,7 +469,7 @@
   when:
     - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_cups_server is defined and (not centos7cis_cups_server and cups_service_status.stdout == "loaded")
-    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks  
+    - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   tags:
     - level1
     - scored
