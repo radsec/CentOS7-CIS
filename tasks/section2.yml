@@ -430,7 +430,7 @@
     state: absent
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - centos7cis_xwindows_required is defined not centos7cis_xwindows_required
+    - centos7cis_xwindows_required is defined and not centos7cis_xwindows_required
     - centos7cis_disable_service_checks is defined and centos7cis_disable_service_checks
   with_items:
     - "@X Window System"

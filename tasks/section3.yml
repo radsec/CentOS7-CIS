@@ -301,7 +301,7 @@
     line: "ALL: ALL"
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - centos7cis_enable_host_deny is defined
+    - centos7cis_enable_hosts_deny is defined
     - centos7cis_enable_hosts_deny
   tags:
     - level1
