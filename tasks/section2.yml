@@ -375,20 +375,37 @@
     - rule_2.2.1.2
 
 - name: "SCORED | 2.2.1.3 | PATCH | Ensure chrony is configured"
-  template:
-    src: chrony.conf.j2
-    dest: /etc/chrony.conf
-    owner: root
-    group: root
-    mode: 0644
+  lineinfile:
+    path: /etc/chrony.conf
+    regexp: "^server\\s+{{ item }}(.*)$"
+    line: "server {{ item }}\\1"
+    backrefs: yes
+  loop: "{{ centos7cis_time_synchronization_servers }}"
   when:
-    - centos7cis_level1 is defined and centos7cis_level1
+    - centos7cis_level1 is defined and rhel7cis_level1
     - centos7cis_time_synchronization is defined
     - centos7cis_time_synchronization == "chrony"
+    - centos7cis_time_synchronization_servers is defined
   tags:
-    - level1
-    - patch
-    - rule_2.2.1.3
+      - level1
+      - patch
+      - rule_2.2.1.3
+
+#- name: "SCORED | 2.2.1.3 | PATCH | Ensure chrony is configured"
+#  template:
+#    src: chrony.conf.j2
+#    dest: /etc/chrony.conf
+#    owner: root
+#    group: root
+#    mode: 0644
+#  when:
+#    - centos7cis_level1 is defined and centos7cis_level1
+#    - centos7cis_time_synchronization is defined
+#    - centos7cis_time_synchronization == "chrony"
+#  tags:
+#    - level1
+#    - patch
+#    - rule_2.2.1.3
 
 - name: "SCORED | 2.2.1.3 | PATCH | Ensure chrony is configured | modify /etc/sysconfig/chronyd"
   template:
