@@ -1,5 +1,7 @@
 # CentOS7-CIS - v2.2.0 - Latest
 
+![ansible-lint](https://github.com/radsec/CentOS7-CIS/workflows/ansible-lint/badge.svg?branch=master)
+
 ## CentOS 7 - CIS Benchmark Hardening Script
 
 This Ansible script is under development and is considered a work in progress.
@@ -27,17 +29,7 @@ MIT License
 
 Copyright for portions of CentOS7-CIS are held by
 
-Copyright (c) 2015 MindPoint Group http://www.mindpointgroup.com
-
-as part of RHEL7-CIS.
-
-All other copyright for project CentOS7-CIS are held by
-
-Copyright (c) 2018-2019 Radsec
-
-AND
-
-Copyright (c) 2018-2019 Coalfire
+Copyright (c) 2018-2020 Radsec
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
