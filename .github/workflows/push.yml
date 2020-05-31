@@ -11,10 +11,10 @@ jobs:
 #      - uses: actions/setup-python@v1
 #      - run: pip install ansible-lint
 #      - run: ansible-lint --version
-  - name: Lint Ansible Playbook
+      - name: Lint Ansible Playbook
       # replace "master" with any valid ref
-      uses: ansible/ansible-lint-action@master
-      with:
+        uses: ansible/ansible-lint-action@master
+        with:
         # [required]
         # Paths to ansible files (i.e., playbooks, tasks, handlers etc..)
         # or valid Ansible directories according to the Ansible role
@@ -23,7 +23,7 @@ jobs:
         # targets: |
         #   playbook_1.yml
         #   playbook_2.yml
-        targets: ""
+          targets: ""
         # [optional]
         # Arguments to override a package and its version to be set explicitly.
         # Must follow the example syntax.
@@ -52,5 +52,5 @@ jobs:
         #                         path to directories or files to skip. This option is
         #                         repeatable.
         #   -c C                  Specify configuration file to use. Defaults to ".ansible-lint"
-        args: "-x 303,305,306,403,602"
+          args: "-x 303,305,306,403,602"
 #      - run: ansible-lint . -x 303,305,306,403,602
