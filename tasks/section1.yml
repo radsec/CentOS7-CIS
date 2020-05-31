@@ -155,10 +155,14 @@
     - rule_1.1.5
 
 - name: "SCORED | 1.1.6 | PATCH | Ensure separate partition exists for /var"
-  shell: mount | grep "on /var "
+  shell: |
+    set -o pipefail
+    mount | grep "on /var "
   register: var_mounted
   changed_when: no
   failed_when: no
+  args:
+   executable: /usr/bin/bash
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
@@ -168,10 +172,14 @@
     - rule_1.1.6
 
 - name: "SCORED | 1.1.7 | PATCH | Ensure separate partition exists for /var/tmp"
-  shell: mount | grep "on /var/tmp "
+  shell: |
+    set -o pipefail
+    mount | grep "on /var/tmp "
   register: var_tmp_mounted
   changed_when: no
   failed_when: no
+  args:
+   executable: /usr/bin/bash
   when:
     - centos7cis_level1 is defined and centos7cis_level1 or centos7cis_level2 is defined and centos7cis_level2
   tags:
@@ -201,10 +209,14 @@
     - low
 
 - name: "SCORED | 1.1.11 | PATCH | Ensure separate partition exists for /var/log"
-  shell: mount | grep "on /var/log "
+  shell: |
+    set -o pipefail
+    mount | grep "on /var/log "
   register: var_log_mounted
   changed_when: no
   failed_when: no
+  args:
+   executable: /usr/bin/bash
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
@@ -214,10 +226,14 @@
     - rule_1.1.11
 
 - name: "SCORED | 1.1.12 | PATCH | Ensure separate partition exists for /var/log/audit"
-  shell: mount | grep "on /var/log/audit "
+  shell: |
+    set -o pipefail
+    mount | grep "on /var/log/audit "
   register: var_log_audit_mounted
   changed_when: no
   failed_when: no
+  args:
+   executable: /usr/bin/bash
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
@@ -227,10 +243,14 @@
     - rule_1.1.12
 
 - name: "SCORED | 1.1.13 | PATCH | Ensure separate partition exists for /home"
-  shell: mount | grep "on /home "
+  shell: |
+    set -o pipefail
+    mount | grep "on /home "
   register: home_mounted
   changed_when: no
   failed_when: no
+  args:
+   executable: /usr/bin/bash
   when:
     - centos7cis_level2 is defined and centos7cis_level2
   tags:
@@ -311,8 +331,12 @@
     - rule_1.1.20
 
 - name: "SCORED | 1.1.21 | PATCH | Ensure sticky bit is set on all world-writable directories"
-  shell: df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
+  shell: |
+    set -o pipefail
+    df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
   #when: sticky_bit_on_worldwritable_dirs_audit.rc == '0'
+  args:
+   executable: /usr/bin/bash
   when:
     - centos7cis_level1 is defined and centos7cis_level1
   tags:

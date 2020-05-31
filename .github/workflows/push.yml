@@ -11,4 +11,4 @@ jobs:
       - uses: actions/setup-python@v1
       - run: pip install ansible-lint
       - run: ansible-lint --version
-      - run: ansible-lint .
+      - run: ansible-lint . -x 303,305,306,403,602

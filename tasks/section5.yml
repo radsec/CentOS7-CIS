@@ -1272,7 +1272,7 @@
     regexp: 'umask'
     line: 'umask {{ centos7cis_default_user_umask }}'
     backup: yes
-  with_items: profiled_dir.files
+  with_items: "{{ profiled_dir.files }}"
   ignore_errors: yes
   when:
     - centos7cis_level1 is defined and centos7cis_level1
