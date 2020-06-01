@@ -400,7 +400,7 @@
   changed_when: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - rhel7cis_modify_user_homes is defined and rhel7cis_modify_user_homes
+    - centos7cis_modify_user_homes is defined and centos7cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
@@ -414,7 +414,7 @@
   register: home_directories_permissions
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - rhel7cis_modify_user_homes is defined and rhel7cis_modify_user_homes
+    - centos7cis_modify_user_homes is defined and centos7cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
@@ -426,8 +426,8 @@
 #     var: home_directories_permissions.stdout_lines
 #   when:
 #     - centos7cis_level1 is defined and centos7cis_level1
-#     - rhel7cis_modify_user_homes is defined and home_directories_permissions is defined
-#     - rhel7cis_modify_user_homes
+#     - centos7cis_modify_user_homes is defined and home_directories_permissions is defined
+#     - centos7cis_modify_user_homes
 #   tags:
 #     - rule_6.2.8
 #     - level1
@@ -439,7 +439,7 @@
     msg: "PASS | 6.2.8 | Users' home directories permissions are 750 or more restrictive."
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - rhel7cis_modify_user_homes is defined and rhel7cis_modify_user_homes
+    - centos7cis_modify_user_homes is defined and centos7cis_modify_user_homes
     - home_directories_permissions is defined and home_directories_permissions.stdout == ""
   tags:
     - rule_6.2.8
@@ -456,7 +456,7 @@
   changed_when: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - rhel7cis_modify_user_homes is defined and rhel7cis_modify_user_homes
+    - centos7cis_modify_user_homes is defined and centos7cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
@@ -606,7 +606,7 @@
   no_log: yes
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - rhel7cis_modify_dot_forward_files is defined and rhel7cis_modify_dot_forward_files
+    - centos7cis_modify_dot_forward_files is defined and centos7cis_modify_dot_forward_files
   tags:
     - rule_6.2.11
     - patch
@@ -621,7 +621,7 @@
   no_log: yes
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - rhel7cis_modify_dot_netrc_files is defined and rhel7cis_modify_dot_netrc_files
+    - centos7cis_modify_dot_netrc_files is defined and centos7cis_modify_dot_netrc_files
   tags:
     - rule_6.2.12
     - patch
@@ -638,7 +638,7 @@
   changed_when: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - rhel7cis_modify_dot_netrc_files_group is defined and rhel7cis_modify_dot_netrc_files_group
+    - centos7cis_modify_dot_netrc_files_group is defined and centos7cis_modify_dot_netrc_files_group
   tags:
     - rule_6.2.13
     - patch
@@ -653,7 +653,7 @@
   no_log: yes
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - rhel7cis_modify_dot_netrc_files_group is defined and rhel7cis_modify_dot_netrc_files_group
+    - centos7cis_modify_dot_netrc_files_group is defined and centos7cis_modify_dot_netrc_files_group
   tags:
     - rule_6.2.13
     - patch
@@ -676,7 +676,7 @@
     msg: "PASS | 6.2.13 | Users' .netrc files are not group or world accessible."
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - rhel7cis_modify_dot_netrc_files_group is defined and rhel7cis_modify_dot_netrc_files_group
+    - centos7cis_modify_dot_netrc_files_group is defined and centos7cis_modify_dot_netrc_files_group
     - dot_netrc_files is defined and dot_netrc_files.stdout == ""
   tags:
     - rule_6.2.13
@@ -693,7 +693,7 @@
   changed_when: no
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - rhel7cis_modify_dot_netrc_files_group is defined and rhel7cis_modify_dot_netrc_files_group
+    - centos7cis_modify_dot_netrc_files_group is defined and centos7cis_modify_dot_netrc_files_group
   tags:
     - rule_6.2.13
     - patch
@@ -708,7 +708,7 @@
   no_log: yes
   when:
     - centos7cis_level1 is defined and centos7cis_level1
-    - rhel7cis_modify_dot_rhosts_files is defined and rhel7cis_modify_dot_rhosts_files
+    - centos7cis_modify_dot_rhosts_files is defined and centos7cis_modify_dot_rhosts_files
   tags:
     - rule_6.2.14
     - patch

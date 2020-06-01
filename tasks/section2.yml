@@ -382,7 +382,7 @@
     backrefs: yes
   loop: "{{ centos7cis_time_synchronization_servers }}"
   when:
-    - centos7cis_level1 is defined and rhel7cis_level1
+    - centos7cis_level1 is defined and centos7cis_level1
     - centos7cis_time_synchronization is defined
     - centos7cis_time_synchronization == "chrony"
     - centos7cis_time_synchronization_servers is defined
